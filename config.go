@@ -3,8 +3,9 @@ package main
 import (
 	"bufio"
 	"encoding/json"
-	"os/user"
+	"fmt"
 	"os"
+	"os/user"
 	"path/filepath"
 )
 
@@ -20,16 +21,43 @@ func readJson(jsonString string) *Configuration {
 	var result *Configuration
 	err := json.Unmarshal([]byte(jsonString), &result)
 	if err != nil {
-		panic(err)
+		handleException(err)
 	}
 	return result
 }
 
 func handleException(err error) {
 	if err != nil {
-		panic(err)
+		fmt.Println("Error", err)
 	}
 }
+
+func getConfig(value string) string {
+	usr, _ := user.Current()
+	configFile := (filepath.Join(usr.HomeDir, "hydra_config.json"))
+	file, ferr := os.Open(configFile)
+	handleException(ferr)
+	wholeText := ""
+	scanner := bufio.NewScanner(file)
+	for scanner.Scan() {
+		line := scanner.Text()
+		wholeText = wholeText + line
+	}
+	file.Close()
+
+	config := readJson(wholeText)
+	if value == "fullName" {
+		return config.FullName
+	} else if value == "githubUsername" {
+		return config.GithubUsername
+	} else if value == "defaultLang" {
+		return config.DefaultLang
+	} else if value == "defaultLicense" {
+		return config.DefaultLicense
+	} else {
+		return fmt.Sprintf("Undefined value: %v.", value)
+	}
+} 
 
 type Configuration struct {
 	FullName string `json:"FullName"`
@@ -65,11 +93,21 @@ func config(fullName, githubUsername, defaultLang, defaultLicense string) {
 	}
 	file.Close()
 	
+
 	// * writing new config to the file by first deleting it
 	configStruct := readJson(wholeText)
-	configStruct.FullName = fullName
-	configStruct.GithubUsername = githubUsername
-	configStruct.DefaultLang = defaultLang
+	if fullName != "name" {
+		configStruct.FullName = fullName
+	}
+
+	if githubUsername != "username" {
+		configStruct.GithubUsername = githubUsername
+	}
+
+	if defaultLang != "lang" {
+		configStruct.DefaultLang = defaultLang
+	}
+
 	configStruct.DefaultLicense = defaultLicense
 
 	os.Remove(configFile)
