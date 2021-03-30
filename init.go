@@ -2,22 +2,14 @@ package main
 
 import (
 	"fmt"
-	"strconv"
-	"time"
 	"os"
 	"os/exec"
 )
 
-func year() string {
-	return strconv.Itoa(time.Now().Year())
-}
-
-func getGitignore(language string) string {
-	return ""
-}
-
-func getLicense(license string) string {
-	return ""
+func handleException(err error) {
+	if err != nil {
+		panic(err)
+	}
 }
 
 func makeFile(filename, content string) {
@@ -45,12 +37,12 @@ func execute(base string, command ...string) error {
 	return nil
 }
 
-func pythonInit(projectName, license string) {
+func pythonInit(projectName string) {
 	fmt.Printf("Initialising project: '%v'.\n", projectName)
 	gwd, _ := os.Getwd()
-	makeFile("LICENSE", license)
+	makeFile("LICENSE", "")
 	makeFile("README.md", fmt.Sprintf("# %v", projectName))
-	makeFile(".gitignore", "pygitignore")
+	makeFile(".gitignore", "")
 	makeFile("setup.py", "from setuptools import setup \n\nsetup()")
 
 	makeDir(projectName)
@@ -66,18 +58,18 @@ func pythonInit(projectName, license string) {
 
 	e := execute("git", "init")
 	if e != nil {
-		fmt.Println("\n ** Git isn't installed on your system. Cannot initiate a repository.")
+		fmt.Println("\n ** Git isn't installed on your system. Cannot initiate a git repository.")
 	} else {
 		fmt.Println("\n - Intialised a Git repository for your project.")
 	}
 }
 
-func goInit(projectName, license string) {
+func goInit(projectName string) {
 	fmt.Printf("Initialising project: '%v'\n.", projectName)
 	gwd, _ := os.Getwd()
-	makeFile("LICENSE", license)
+	makeFile("LICENSE", "")
 	makeFile("README.md", fmt.Sprintf("# %v", projectName))
-	makeFile(".gitignore", "gogitignore")
+	makeFile(".gitignore", "")
 
 	makeDir("src")
 	os.Chdir("./src")
