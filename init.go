@@ -39,6 +39,10 @@ func execute(base string, command ...string) error {
 
 func pythonInit(projectName string) {
 	fmt.Printf("Initialising project: '%v'.\n", projectName)
+
+	makeDir(projectName)
+	os.Chdir(fmt.Sprintf("./%v", projectName))
+
 	gwd, _ := os.Getwd()
 	makeFile("LICENSE", "")
 	makeFile("README.md", fmt.Sprintf("# %v", projectName))
@@ -66,6 +70,10 @@ func pythonInit(projectName string) {
 
 func goInit(projectName string) {
 	fmt.Printf("Initialising project: '%v'\n.", projectName)
+
+	makeDir(projectName)
+	os.Chdir(fmt.Sprintf("./%v", projectName))
+
 	gwd, _ := os.Getwd()
 	makeFile("LICENSE", "")
 	makeFile("README.md", fmt.Sprintf("# %v", projectName))
