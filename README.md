@@ -1,7 +1,7 @@
 # hydra
 *hydra* is a command line utility for generating language-specific project structure.
 
-![python-init](assets\python_init.PNG)
+![python-init](assets/python_init.PNG)
 ⏬
 ![python-dir](assets/python_dir.PNG)
 
