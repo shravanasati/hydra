@@ -17,16 +17,16 @@ func main() {
 	commando.
 		SetExecutableName(NAME).
 		SetVersion(VERSION).
-		SetDescription("hydra is command line utility to generate language-specific project structure. \nFor more detailed information and documentation, visit https://github.com/Shravan-1908/hydra. \nOr try the command `hydra --help`.")
+		SetDescription("hydra is command line utility to generate language-specific project structure. \nFor more detailed information and documentation, visit https://github.com/Shravan-1908/hydra . \n")
 
 	// * the init command
 	commando.
 		Register("init").
 		SetDescription("Intialises the project structure.\n\nUsage: \n name : project name \n lang : programming language in which the project is being built.").
 		SetShortDescription("Intialises the project structure.").
-		SetDescription("The `init` command initialises the project structure, with the `name` argument being the project name and `lang` argument the language you're working on.").
+		SetDescription("The `init` command initialises the project structure.").
 		AddArgument("name", "Name of the project", "").
-		AddArgument("lang", "Language of the project you're working on.", "").
+		AddArgument("lang", "Language/framework of the project.", "").
 		SetAction(func(args map[string]commando.ArgValue, flags map[string]commando.FlagValue) {
 
 			projectName := args["name"].Value
