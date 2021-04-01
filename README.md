@@ -2,18 +2,20 @@
 *hydra* is a command line utility for generating language-specific project structure.
 
 ![python-init](assets/python_init.PNG)
+
 ⏬
+
 ![python-dir](assets/python_dir.PNG)
 
 <br>
 
 ## Installation
 ### Method 1
-- Download the latest *exe* release of *hydra* suitable for your OS from [here](https://github.com/Shravan-1908/hydra/releases/latest).
+- Download the latest exe release of *hydra* suitable for your OS from [here](https://github.com/Shravan-1908/hydra/releases/latest).
 
 - Rename the downloaded file to `hydra`.
 
-- Add the directory where *hydra* is downloaded to the `PATH` variable of your system, so that you can call hydra from any directory via a terminal.
+- Add the directory where *hydra* is downloaded to the `PATH` variable of your system, so that you can call hydra in any directory via a terminal. If you don't know how to setup the `PATH` variable, refer these links for [Windows](https://helpdeskgeek.com/windows-10/add-windows-path-environment-variable/), [macOS](https://phoenixnap.com/kb/set-environment-variable-mac) and [Linux](https://opensource.com/article/17/6/set-path-linux).
 
 - To verify installation of *hydra*, open a new shell and execute `hydra -v`. You should see output like this:
 ```
@@ -30,10 +32,11 @@ If you've Go installed on your system, execute:
 `go get github.com/Shravan-1908/hydra`
 
 You don't need to change the PATH variable in this case, as Go will automatically build and add the executable in the $GOPATH/bin directory.
+
 <br>
 
 ## Usage
-*hydra* mainly contains of one command: `init`.
+This section shows how you can use *hydra*.
 ### init
 To create a new project structure using hydra,
 execute 
@@ -53,12 +56,13 @@ Valid options for the language argument are:
 
 ### version
 `$ hydra version`
-The version command shows the version of hydra installed.
+
+The version command shows the version of *hydra* installed.
 
 ### help
 `$ hydra help`
 
-Renders assistance for hydra on a terminal, briefly showing its usage.
+Renders assistance for *hydra* on a terminal, briefly showing its usage.
 
 <br>
 
@@ -71,7 +75,7 @@ View [CHANGELOG.md](CHANGELOG.md) for more information.
 <br>
 
 ## Versioning
-*hydra* releases follow semantic versioning, where every release is in the form *x.y.z* form, where:
+*hydra* releases follow semantic versioning, where every release is in the *x.y.z* form, where:
 - *x* is the MAJOR version and is incremented when a backwards incompatible change to hydra is made.
 - *y* is the MINOR version and is incremented when a backwards compatible change to hydra is made, like changing dependencies or adding a new function, method, struct field, or type.
 - *z* is the PATCH version and is incremented after making minor changes that don't affect hydra's public API or dependencies, like fixing a bug.
