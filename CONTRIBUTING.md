@@ -26,6 +26,7 @@ This section shows how you can setup your development environment to contribute 
 
 - Fork the repository.
 - Clone it using Git (`git clone https://github.com/<YOUR USERNAME>hydra.git`).
+- Create a new git branch (`git checkout -b "BRANCH NAME"`).
 - Install `commando` module using the command `go get github.com/thatisuday/commando`.
 - Make changes.
 - Stage and commit (`git add .` and `git commit -m "COMMIT MESSAGE"`).

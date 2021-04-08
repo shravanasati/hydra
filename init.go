@@ -4,7 +4,40 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
+	"strings"
+	"time"
+	"strconv"
+	"embed"
 )
+
+// just to use the embed package
+var _ embed.FS
+
+
+// * all licenses 
+//go:embed licenses\APACHE
+var APACHE string
+//go:embed licenses\BSD
+var BSD string
+//go:embed licenses\EPL
+var EPL string
+//go:embed licenses\GPL
+var GPL string
+//go:embed licenses\MIT
+var MIT string
+//go:embed licenses\MPL
+var MPL string
+
+// * all gitignores
+//go:embed gitignores\go.gitignore
+var goGitignore string
+//go:embed gitignores\python.gitignore
+var pythonGitignore string
+
+
+func year() string {
+	return strconv.Itoa(time.Now().Year())
+}
 
 func handleException(err error) {
 	if err != nil {
@@ -37,16 +70,65 @@ func execute(base string, command ...string) error {
 	return nil
 }
 
-func pythonInit(projectName string) {
+func getGitignore(language string) string {
+	switch language {
+	case "python":
+		return pythonGitignore
+	case "go":
+		return goGitignore
+	default:
+		return fmt.Sprintf("Unknown language: %v.", language)
+	}
+}
+
+func getLicense(license string) string {
+	switch license {
+	case "MIT":
+		licenseText := MIT
+		licenseText = strings.Replace(licenseText, ":YEAR:", year(), 1)
+		licenseText = strings.Replace(licenseText, ":NAME:", getConfig("fullName"), 1)
+		return licenseText
+	case "BSD":
+		licenseText := BSD
+		licenseText = strings.Replace(licenseText, ":YEAR:", year(), 1)
+		licenseText = strings.Replace(licenseText, ":NAME:", getConfig("fullName"), 1)
+		return licenseText
+	case "APACHE":
+		licenseText := APACHE
+		licenseText = strings.Replace(licenseText, ":YEAR:", year(), 1)
+		licenseText = strings.Replace(licenseText, ":NAME:", getConfig("fullName"), 1)
+		return licenseText
+	case "EPL":
+		licenseText := EPL
+		licenseText = strings.Replace(licenseText, ":YEAR:", year(), 1)
+		licenseText = strings.Replace(licenseText, ":NAME:", getConfig("fullName"), 1)
+		return licenseText
+	case "MPL":
+		licenseText := MPL
+		licenseText = strings.Replace(licenseText, ":YEAR:", year(), 1)
+		licenseText = strings.Replace(licenseText, ":NAME:", getConfig("fullName"), 1)
+		return licenseText
+	case "GPL":
+		licenseText := GPL
+		licenseText = strings.Replace(licenseText, ":YEAR:", year(), 1)
+		licenseText = strings.Replace(licenseText, ":NAME:", getConfig("fullName"), 1)
+		return licenseText
+	default:
+		return fmt.Sprintf("Undefined license: %v.", license)
+	}
+	
+}
+
+func pythonInit(projectName, license string) {
 	fmt.Printf("Initialising project: '%v'.\n", projectName)
 
 	makeDir(projectName)
 	os.Chdir(fmt.Sprintf("./%v", projectName))
 
 	gwd, _ := os.Getwd()
-	makeFile("LICENSE", "")
+	makeFile("LICENSE", getLicense(license))
 	makeFile("README.md", fmt.Sprintf("# %v", projectName))
-	makeFile(".gitignore", "")
+	makeFile(".gitignore", getGitignore("python"))
 	makeFile("setup.py", "from setuptools import setup \n\nsetup()")
 
 	makeDir(projectName)
@@ -68,16 +150,16 @@ func pythonInit(projectName string) {
 	}
 }
 
-func goInit(projectName string) {
+func goInit(projectName, license string) {
 	fmt.Printf("Initialising project: '%v'\n.", projectName)
 
 	makeDir(projectName)
 	os.Chdir(fmt.Sprintf("./%v", projectName))
 
 	gwd, _ := os.Getwd()
-	makeFile("LICENSE", "")
+	makeFile("LICENSE", getLicense(license))
 	makeFile("README.md", fmt.Sprintf("# %v", projectName))
-	makeFile(".gitignore", "")
+	makeFile(".gitignore", getGitignore("go"))
 
 	makeDir("src")
 	os.Chdir("./src")
@@ -92,7 +174,7 @@ func goInit(projectName string) {
 	makeDir("bin")
 	makeDir("pkg")
 
-	e := execute("go", "mod", "init", projectName)
+	e := execute("go", "mod", "init", fmt.Sprintf("github.com/%v/%v", getConfig("githubUsername"), projectName))
 	if e != nil {
 		fmt.Println("\n ** Go isn't installed on your system. Cannot enable dependency tracking.")
 	} else {

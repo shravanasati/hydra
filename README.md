@@ -19,9 +19,9 @@
 
 - To verify installation of *hydra*, open a new shell and execute `hydra -v`. You should see output like this:
 ```
-hydra 1.0.0
+hydra 2.0.0
 
-Version: 1.0.0
+Version: 2.0.0
 ```
 If the output isn't something like this, you need to repeat the above steps carefully.
 
@@ -37,19 +37,64 @@ You don't need to change the PATH variable in this case, as Go will automaticall
 
 ## Usage
 This section shows how you can use *hydra*.
+
+### config
+The `config` command is used to set or alter the hydra user configurations.
+
+`$ hydra config {flags}`
+
+The valid flags for config command are:
+- `name` --> The name of the user.
+It is used as the name of the copyright holder in the LICENSE file.
+
+- `github-username` --> The Github username of the user.
+It is used to initiate the modules in go.
+
+- `default-lang` --> The default language for project initialisation. It is used in case the `lang` argument is not provided in the `init` command. Valid options for the `default-lang` flag are:
+    * go
+    * python
+
+- `default-license` --> The default license for project creation. Valid values are:
+    * MIT
+    * GPL
+    * BSD
+    * APACHE
+    * EPL
+    * MPL
+
+Once hydra is installed, it is advised to run the following command to complete the configuration.
+
+`$ hydra config --name "YOUR NAME" --github-username "YOUR GITHUB USERNAME"`
+
+
+### list
+The `list` command is used to list supported languages, licenses and the hydra user configurations.
+
+`$ hydra list <item>`
+
+Valid options for the `item` argument are:
+- langs --> Languages supported by hydra
+- licenses --> Licenses supported by hydra
+- configs --> The hydra user configurations
+
+Example: `hydra list langs`
+
 ### init
-To create a new project structure using hydra,
-execute 
+To create a new project structure using *hydra*,
+execute:
 
-`$ hydra init myProject python`
+`$ hydra init <project name> [lang]`
 
-The above command initialises the project.
+The `init` command initialises the project.
 
-Here, 'myProject' is the project name and 'python' is the language in which the project is being built.
 
 Valid options for the language argument are:
 - python
 - go
+
+Example: `hydra init myProject python`
+
+In case the `lang` argument is not provided, hydra falls back to the `default-lang` configuration.
 
 *hydra* currently supports only python and go for project creation. But, as new versions are published, support for more languages/frameworks will be added.
 
@@ -67,8 +112,10 @@ Renders assistance for *hydra* on a terminal, briefly showing its usage.
 <br>
 
 ## Change Log
-The changes made in the latest version of hydra, *v1.0.0* are:
-- First release
+The changes made in the latest version of hydra, *v2.0.0* are:
+- Added the `list` command
+- Added the `config` command
+- Added support for gitignores and licenses
 
 View [CHANGELOG.md](CHANGELOG.md) for more information.
 
