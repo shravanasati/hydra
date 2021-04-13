@@ -1,3 +1,11 @@
+/*
+The following code is responsible for the init command.
+
+Author: Shravan Asati
+Originally Written: 28 March 2021
+Last edited: 13 April 2021
+*/
+
 package main
 
 import (

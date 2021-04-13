@@ -7,18 +7,36 @@ The following is a set of guidelines for contributing to *hydra*, which is hoste
 
 ## Project Structure
 ```
-├──  .gitignore
-├──  CHANGELOG.md
-├──  CONTRIBUTING.md
-├──  LICENSE
-├──  README.md
-├──  assets
-|  ├──  python_dir.PNG
-|  └──  python_init.PNG
-├──  go.mod
-├──  go.sum
-├──  hydra.go
-└──  init.go
+├── .github
+|  ├── ISSUE_TEMPLATE           # issue templeates
+|  |  ├── bug_report.md
+|  |  ├── custom.md
+|  |  └── feature_request.md
+|  └── workflows                # ci workflow
+|     └── go.yml
+├── .gitignore
+├── CHANGELOG.md
+├── CONTRIBUTING.md
+├── LICENSE
+├── README.md
+├── assets                      # media assets for readme
+|  ├── python_dir.PNG
+|  └── python_init.PNG
+├── config.go                   # config command code
+├── gitignores                  # all gitignores
+|  ├── go.gitignore
+|  └── python.gitignore
+├── go.mod
+├── go.sum
+├── hydra.go                    # main code of cli
+├── init.go                     # init command code
+└── licenses                    # all licenses
+   ├── APACHE
+   ├── BSD
+   ├── EPL
+   ├── GPL
+   ├── MIT
+   └── MPL
 ```
 
 ## Setup Development Environment

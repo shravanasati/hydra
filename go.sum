@@ -1,4 +1,14 @@
+github.com/PuerkitoBio/goquery v1.6.1 h1:FgjbQZKl5HTmcn4sKBgvx8vv63nhyhIpv7lJpFGCWpk=
+github.com/PuerkitoBio/goquery v1.6.1/go.mod h1:GsLWisAFVj4WgDibEWF4pvYnkVQBpKBKeU+7zCJoLcc=
+github.com/andybalholm/cascadia v1.1.0 h1:BuuO6sSfQNFRu1LppgbD25Hr2vLYW25JvxHs5zzsLTo=
+github.com/andybalholm/cascadia v1.1.0/go.mod h1:GsXiBklL0woXo1j/WYWtSYYC4ouU9PqHO0sqidkEA4Y=
 github.com/thatisuday/clapper v1.0.10 h1:1EkqE/nb4npp8DuTKnpvVzO/Mcac9lOPND34uUKF+bU=
 github.com/thatisuday/clapper v1.0.10/go.mod h1:FQGIg8q2uzeI+3SUS82YKF4E3KexkHStbiK4qTfDknM=
 github.com/thatisuday/commando v1.0.4 h1:aNdH9tvmx2EPG6rT3NTQOV/qFYPf4Ap4Spo+q+n9Ois=
 github.com/thatisuday/commando v1.0.4/go.mod h1:ODGz6jwJs4QqhLJtCjRRs8xIrmLLMdatYYddP+v1b4E=
+golang.org/x/crypto v0.0.0-20190308221718-c2843e01d9a2/go.mod h1:djNgcEr1/C05ACkg1iLfiJU5Ep61QUkGW8qpdssI0+w=
+golang.org/x/net v0.0.0-20180218175443-cbe0f9307d01/go.mod h1:mL1N/T3taQHkDXs73rZJwtUhF3w3ftmwwsq0BUmARs4=
+golang.org/x/net v0.0.0-20200202094626-16171245cfb2 h1:CCH4IOTTfewWjGOlSp+zGcjutRKlBEZQ6wTn8ozI/nI=
+golang.org/x/net v0.0.0-20200202094626-16171245cfb2/go.mod h1:z5CRVTTTmAJ677TzLLGU+0bjPO0LkuOLi4/5GtJWs/s=
+golang.org/x/sys v0.0.0-20190215142949-d0b11bdaac8a/go.mod h1:STP8DvDyc/dI5b8T5hshtkjS+E42TnysNCUPdjciGhY=
+golang.org/x/text v0.3.0/go.mod h1:NqM8EUOU14njkJ3fqMW+pc6Ldnwhi/IjpwHt7yyuwOQ=

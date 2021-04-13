@@ -1,3 +1,11 @@
+/*
+The following code is responsible for the config command.
+
+Author: Shravan Asati
+Originally Written: 30 March 2021
+Last edited: 13 April 2021
+*/
+
 package main
 
 import (
