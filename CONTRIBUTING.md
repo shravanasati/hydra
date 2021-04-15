@@ -30,6 +30,7 @@ The following is a set of guidelines for contributing to *hydra*, which is hoste
 ├── go.sum
 ├── hydra.go                    # main code of cli
 ├── init.go                     # init command code
+├── list.go                     # list command code
 └── licenses                    # all licenses
    ├── APACHE
    ├── BSD

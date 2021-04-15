@@ -3,7 +3,7 @@ The following code is responsible for the init command.
 
 Author: Shravan Asati
 Originally Written: 28 March 2021
-Last edited: 13 April 2021
+Last edited: 15 April 2021
 */
 
 package main
@@ -23,23 +23,23 @@ var _ embed.FS
 
 
 // * all licenses 
-//go:embed licenses\APACHE
+//go:embed .\licenses\APACHE
 var APACHE string
-//go:embed licenses\BSD
+//go:embed .\licenses\BSD
 var BSD string
-//go:embed licenses\EPL
+//go:embed .\licenses\EPL
 var EPL string
-//go:embed licenses\GPL
+//go:embed .\licenses\GPL
 var GPL string
-//go:embed licenses\MIT
+//go:embed .\licenses\MIT
 var MIT string
-//go:embed licenses\MPL
+//go:embed .\licenses\MPL
 var MPL string
 
 // * all gitignores
-//go:embed gitignores\go.gitignore
+//go:embed .\gitignores\go.gitignore
 var goGitignore string
-//go:embed gitignores\python.gitignore
+//go:embed .\gitignores\python.gitignore
 var pythonGitignore string
 
 

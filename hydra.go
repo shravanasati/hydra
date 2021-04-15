@@ -1,9 +1,9 @@
 /*
-The following code is responsible for the config command.
+Code responsible for the hydra CLI.
 
 Author: Shravan Asati
 Originally Written: 27 March 2021
-Last edited: 13 April 2021
+Last edited: 15 April 2021
 */
 
 package main
@@ -16,7 +16,7 @@ import (
 
 const (
 	NAME string = "hydra"
-	VERSION string = "2.0.0"
+	VERSION string = "2.0.1"
 )
 
 var (
@@ -58,30 +58,13 @@ func main() {
 		SetAction(func(args map[string]commando.ArgValue, flags map[string]commando.FlagValue) {
 
 			if args["item"].Value == "langs" {
-				fmt.Printf("\n%v %v supports following languages for project initialisation: \n", NAME, VERSION)
-				for i, v := range supportedLangs {
-					fmt.Printf("%v. %v \n", i+1, v)
-				}
-			
+				list("langs")
 			} else if args["item"].Value == "licenses" {
-				fmt.Printf("\n%v %v supports following licenses for project initialisation: \n", NAME, VERSION)
-				i := 1
-				for k, v := range supportedLicenses {
-					fmt.Printf("%v. %v - %v \n", i, k, v)
-					i++
-				}
-			
+				list("licenses")
 			} else if args["item"].Value == "configs" {
-				config("default", "default", "default", "default")
-				fmt.Println("\nThe hydra user configurations are:")
-				fmt.Println("Full Name:", getConfig("fullName"))
-				fmt.Println("GitHub Username:", getConfig("githubUsername"))
-				fmt.Println("Default Language:", getConfig("defaultLang"))
-				fmt.Println("Default License:", getConfig("defaultLicense"))
-				fmt.Println("\nTo know how to set the configuration, type in `hydra config -h`.")
-			
+				list("configs")
 			} else {
-				fmt.Printf("Invalid value for the 'item' argument: '%v'.\nSee `hydra list -h` for help.", args["item"].Value)
+				list(args["item"].Value)
 			} 
 		})
 
