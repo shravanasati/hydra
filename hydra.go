@@ -48,6 +48,12 @@ func main() {
 		SetVersion(VERSION).
 		SetDescription("hydra is command line utility used to generate language-specific project structure. \nFor more detailed information and documentation, visit https://github.com/Shravan-1908/hydra . \n")
 
+  commando.
+    Register(nil).
+		SetAction(func(args map[string]commando.ArgValue, flags map[string]commando.FlagValue) {
+      fmt.Println("\nExecute `hydra -h` for help.")
+		})
+
 
 	// * the list command
 	commando.
