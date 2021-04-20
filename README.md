@@ -112,10 +112,10 @@ Renders assistance for *hydra* on a terminal, briefly showing its usage.
 <br>
 
 ## Change Log
-The changes made in the latest version of hydra, *v2.0.0* are:
-- Added the `list` command
-- Added the `config` command
-- Added support for gitignores and licenses
+The changes made in the latest version of hydra, *v2.0.1* are:
+
+- Made a separate 'list.go' file for the `list` command
+- CI build bug fix (redefined embed paths for licenses and gitignores)
 
 View [CHANGELOG.md](CHANGELOG.md) for more information.
 
