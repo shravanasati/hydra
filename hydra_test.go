@@ -2,7 +2,9 @@ package main
 
 import (
 	"fmt"
+	"io/ioutil"
 	"math/rand"
+	"os"
 	"testing"
 	"time"
 )
@@ -49,6 +51,16 @@ func generateRandom(value string) string {
 }
 
 func TestConfig(t *testing.T) {
+	// * the below line is to ensure the `hydra_config.json` file exists
+	config("default", "default", "default", "default")
+
+	// * getting all initial values so that after the tests, the cleanup function can restore the configuration
+	initialName := getConfig("fullName")
+	initialGithubUsername := getConfig("githubUsername")
+	initialLang := getConfig("defaultLang")
+	initialLicense := getConfig("defaultLicense")
+
+	// * storing random values
 	rname := generateRandom("name")
 	rgithub := generateRandom("githubUsername")
 	rlang := generateRandom("lang")
@@ -81,9 +93,59 @@ func TestConfig(t *testing.T) {
 	if gotLicense != rlicense {
 		t.Errorf("Got %v, expected %v", gotLicense, rlicense)
 	}
+
+	// * cleaning up
+	t.Cleanup(func(){
+		t.Log("\nCleaning up...\n")
+		config(initialName, initialGithubUsername, initialLang, initialLicense)
+	})
 }
 
+func TestPythonInit(t *testing.T) {
+	gwd, e := os.Getwd()
+	handleException(e)
 
-// func TestInit(t *testing.T) {
+	// * generating random project name and license for initialisation
+	rlicense := generateRandom("license")
+	rprojectName := generateRandom("name")
 
-// }
+	pythonInit(rprojectName, rlicense)
+
+	// * getting all files present in the directory
+	files, e := ioutil.ReadDir("./")
+	handleException(e)
+
+	// * converting into filenames
+	filenames := []string{}
+	for _, file := range files {
+		filenames = append(filenames, file.Name())
+	}
+
+	// * checking for presence
+	if !stringInSlice(rprojectName, filenames) {
+		t.Errorf("project %v not in the directory", rprojectName)
+	}
+
+
+	// * getting contents of the project initialised
+	projectFiles, er := ioutil.ReadDir("./")
+	handleException(er)
+	projectFileNames := []string{}
+	for _, f := range projectFiles {
+		projectFileNames = append(projectFileNames, f.Name())
+	}
+
+	// * checking for various files
+	if !stringInSlice("LICENSE", projectFileNames) {t.Errorf("LICENSE file not present.")}
+	if !stringInSlice("README.md", projectFileNames) {t.Errorf("README.md file not present.")}
+	if !stringInSlice(".gitignore", projectFileNames) {t.Errorf(".gitignore file not present.")}
+	if !stringInSlice("setup.py", projectFileNames) {t.Errorf("setup.py file not present.")}
+	if !stringInSlice(rprojectName, projectFileNames) {t.Errorf("%v dir not present.", rprojectName)}
+	if !stringInSlice("tests", projectFileNames) {t.Errorf("tests dir not present.")}
+
+	t.Cleanup(func() {
+		t.Log("Cleaning up...")
+		os.Chdir(gwd)
+		os.RemoveAll(rprojectName)
+	})
+}
