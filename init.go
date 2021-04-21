@@ -49,7 +49,8 @@ func year() string {
 
 func handleException(err error) {
 	if err != nil {
-		panic(err)
+		fmt.Println(err)
+		os.Exit(-1)
 	}
 }
 

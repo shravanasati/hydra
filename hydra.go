@@ -10,25 +10,25 @@ package main
 
 import (
 	"fmt"
-	"strings"
 	"github.com/thatisuday/commando"
+	"strings"
 )
 
 const (
-	NAME string = "hydra"
+	NAME    string = "hydra"
 	VERSION string = "2.0.1"
 )
 
 var (
-	supportedLangs []string = []string{"go", "python"}
+	supportedLangs    []string          = []string{"go", "python"}
 	supportedLicenses map[string]string = map[string]string{
-		"APACHE":"Apache License",
-		"BSD":"Berkeley Software Distribution 3-Clause", 
-		"EPL":"Eclipse Public License", 
-		"GPL":"GNU General Public License v3", 
-		"MIT":"Massachusetts Institute of Technology License", 
-		"MPL":"Mozilla Public License"}
-) 
+		"APACHE": "Apache License",
+		"BSD":    "Berkeley Software Distribution 3-Clause",
+		"EPL":    "Eclipse Public License",
+		"GPL":    "GNU General Public License v3",
+		"MIT":    "Massachusetts Institute of Technology License",
+		"MPL":    "Mozilla Public License"}
+)
 
 func stringInSlice(s string, slice []string) bool {
 	for _, v := range slice {
@@ -48,12 +48,11 @@ func main() {
 		SetVersion(VERSION).
 		SetDescription("hydra is command line utility used to generate language-specific project structure. \nFor more detailed information and documentation, visit https://github.com/Shravan-1908/hydra . \n")
 
-  commando.
-    Register(nil).
+	commando.
+		Register(nil).
 		SetAction(func(args map[string]commando.ArgValue, flags map[string]commando.FlagValue) {
-      fmt.Println("\nExecute `hydra -h` for help.")
+			fmt.Println("\nExecute `hydra -h` for help.")
 		})
-
 
 	// * the list command
 	commando.
@@ -64,16 +63,15 @@ func main() {
 		SetAction(func(args map[string]commando.ArgValue, flags map[string]commando.FlagValue) {
 
 			if args["item"].Value == "langs" {
-				list("langs")
+				fmt.Println(list("langs"))
 			} else if args["item"].Value == "licenses" {
-				list("licenses")
+				fmt.Println(list("licenses"))
 			} else if args["item"].Value == "configs" {
-				list("configs")
+				fmt.Println(list("configs"))
 			} else {
-				list(args["item"].Value)
-			} 
+				fmt.Println(list(args["item"].Value))
+			}
 		})
-
 
 	commando.
 		Register("config").
@@ -84,9 +82,8 @@ func main() {
 		AddFlag("default-lang", "The user's default language for project initialisation.", commando.String, "default").
 		AddFlag("default-license", "The user's default license for project initialisation.", commando.String, "default").
 		SetAction(func(args map[string]commando.ArgValue, flags map[string]commando.FlagValue) {
-			config(flags["name"].Value.(string), flags["github-username"].Value.(string), flags["default-lang"].Value.(string), flags["default-license"].Value.(string), )
+			config(flags["name"].Value.(string), flags["github-username"].Value.(string), flags["default-lang"].Value.(string), flags["default-license"].Value.(string))
 		})
-
 
 	// * the init command
 	commando.
@@ -131,7 +128,6 @@ func main() {
 				fmt.Printf("Unsupported language type: '%v'. Cannot initiate the project.", projectLang)
 			}
 		})
-
 
 	commando.Parse(nil)
 }
