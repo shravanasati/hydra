@@ -149,3 +149,38 @@ func TestPythonInit(t *testing.T) {
 		os.RemoveAll(rprojectName)
 	})
 }
+
+func TestGoInit(t *testing.T) {
+	gwd, e := os.Getwd()
+	handleException(e)
+
+	// * generating random project name and license for initialisation
+	rlicense := generateRandom("license")
+	rprojectName := generateRandom("name")
+
+	goInit(rprojectName, rlicense)
+
+	// * getting contents of the project initialised
+	projectFiles, er := ioutil.ReadDir("./")
+	handleException(er)
+	projectFileNames := []string{}
+	for _, f := range projectFiles {
+		projectFileNames = append(projectFileNames, f.Name())
+	}
+
+	// * checking for various files
+	if !stringInSlice("LICENSE", projectFileNames) {t.Errorf("LICENSE file not present.")}
+	if !stringInSlice("README.md", projectFileNames) {t.Errorf("README.md file not present.")}
+	if !stringInSlice(".gitignore", projectFileNames) {t.Errorf(".gitignore file not present.")}
+	if !stringInSlice("go.mod", projectFileNames) {t.Errorf("go.mod file not present.")}
+	if !stringInSlice("src", projectFileNames) {t.Errorf("src dir not present.")}
+	if !stringInSlice("bin", projectFileNames) {t.Errorf("bin dir not present.")}
+	if !stringInSlice("pkg", projectFileNames) {t.Errorf("pkg dir not present.")}
+	if !stringInSlice("tests", projectFileNames) {t.Errorf("tests dir not present.")}
+
+	t.Cleanup(func() {
+		t.Log("Cleaning up...")
+		os.Chdir(gwd)
+		os.RemoveAll(rprojectName)
+	})
+}
