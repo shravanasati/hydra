@@ -172,7 +172,6 @@ func TestGoInit(t *testing.T) {
 	if !stringInSlice("LICENSE", projectFileNames) {t.Errorf("LICENSE file not present.")}
 	if !stringInSlice("README.md", projectFileNames) {t.Errorf("README.md file not present.")}
 	if !stringInSlice(".gitignore", projectFileNames) {t.Errorf(".gitignore file not present.")}
-	if !stringInSlice("go.mod", projectFileNames) {t.Errorf("go.mod file not present.")}
 	if !stringInSlice("src", projectFileNames) {t.Errorf("src dir not present.")}
 	if !stringInSlice("bin", projectFileNames) {t.Errorf("bin dir not present.")}
 	if !stringInSlice("pkg", projectFileNames) {t.Errorf("pkg dir not present.")}
