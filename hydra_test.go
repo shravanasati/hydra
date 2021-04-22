@@ -1,3 +1,11 @@
+/*
+The following code contains unittests for hydra continous integration.
+
+Author: Shravan Asati
+Originally Written: 21 April 2021
+Last Edited: 21 April 2021
+*/
+
 package main
 
 import (
