@@ -29,6 +29,7 @@ The following is a set of guidelines for contributing to *hydra*, which is hoste
 ├── go.mod
 ├── go.sum
 ├── hydra.go                    # main code of cli
+├── hydra_test.go               # unittests for hydra
 ├── init.go                     # init command code
 ├── list.go                     # list command code
 └── licenses                    # all licenses

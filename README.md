@@ -1,5 +1,5 @@
 # hydra
-*hydra* is a command line utility for generating language-specific project structure.
+*hydra* is a command line utility for generating language-specific project structures.
 
 ![python-init](assets/python_init.PNG)
 
@@ -9,7 +9,17 @@
 
 <br>
 
-## Installation
+## ✨ Features
+
+- Build project templates with just one command
+- Support for six different licenses
+- Language-specific .gitignore 
+- Configure default language and default license to work with
+- Fast and reliable
+
+<br>
+
+## ⚡️ Installation
 ### Method 1
 - Download the latest exe release of *hydra* suitable for your OS from [here](https://github.com/Shravan-1908/hydra/releases/latest).
 
@@ -35,7 +45,7 @@ You don't need to change the PATH variable in this case, as Go will automaticall
 
 <br>
 
-## Usage
+## 💡 Usage
 This section shows how you can use *hydra*.
 
 ### config
@@ -111,7 +121,7 @@ Renders assistance for *hydra* on a terminal, briefly showing its usage.
 
 <br>
 
-## Change Log
+## ⏩ Change Log
 The changes made in the latest version of hydra, *v2.0.1* are:
 
 - Made a separate 'list.go' file for the `list` command
@@ -121,7 +131,7 @@ View [CHANGELOG.md](CHANGELOG.md) for more information.
 
 <br>
 
-## Versioning
+## 🔖 Versioning
 *hydra* releases follow semantic versioning, where every release is in the *x.y.z* form, where:
 - *x* is the MAJOR version and is incremented when a backwards incompatible change to hydra is made.
 - *y* is the MINOR version and is incremented when a backwards compatible change to hydra is made, like changing dependencies or adding a new function, method, struct field, or type.
@@ -129,7 +139,7 @@ View [CHANGELOG.md](CHANGELOG.md) for more information.
 
 <br>
 
-## License
+## 📄 License
 License
 © 2021 Shravan Asati
 
@@ -137,5 +147,5 @@ This repository is licensed under the MIT license. See [LICENSE](LICENSE) for de
 
 <br>
 
-## Contribution
+## 👥 Contribution
 Pull requests are more than welcome. For more information on how to contribute to *hydra*, refer [CONTRIBUTING.md](CONTRIBUTING.md).
