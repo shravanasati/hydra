@@ -63,6 +63,7 @@ It is used to initiate the modules in go.
 - `default-lang` --> The default language for project initialisation. It is used in case the `lang` argument is not provided in the `init` command. Valid options for the `default-lang` flag are:
     * go
     * python
+    * web
 
 - `default-license` --> The default license for project creation. Valid values are:
     * MIT
@@ -101,12 +102,13 @@ The `init` command initialises the project.
 Valid options for the language argument are:
 - python
 - go
+- web
 
 Example: `hydra init myProject python`
 
 In case the `lang` argument is not provided, hydra falls back to the `default-lang` configuration.
 
-*hydra* currently supports only python and go for project creation. But, as new versions are published, support for more languages/frameworks will be added.
+*hydra* currently supports only python, go and web-frontend for project creation. But, as new versions are published, support for more languages/frameworks will be added.
 
 
 ### version

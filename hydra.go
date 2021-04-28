@@ -16,11 +16,11 @@ import (
 
 const (
 	NAME    string = "hydra"
-	VERSION string = "2.0.1"
+	VERSION string = "2.1.0"
 )
 
 var (
-	supportedLangs    []string          = []string{"go", "python"}
+	supportedLangs []string = []string{"go", "python", "web"}
 	supportedLicenses map[string]string = map[string]string{
 		"APACHE": "Apache License",
 		"BSD":    "Berkeley Software Distribution 3-Clause",

@@ -15,3 +15,6 @@
 ## v2.0.1 (15/4/2021)
 - Made a separate 'list.go' file for the `list` command
 - CI build bug fix (redefined embed paths for licenses and gitignores)
+
+## v2.1.0 (28/4/2021)
+- Added support for web as a language type for project initialisation
