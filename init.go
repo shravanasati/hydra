@@ -196,3 +196,43 @@ func goInit(projectName, license string) {
 		fmt.Println(" - Intialised a Git repository for your project.")
 	}
 }
+
+var HTMLBoilerplate string = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>:PROJECT_NAME:</title>
+</head>
+<body>
+    <h1>:PROJECT_NAME:</h1>
+</body>
+</html>
+`
+
+func webInit(projectName, license string) {
+	fmt.Printf("Initialising project: '%v'.\n", projectName)
+
+	makeDir(projectName)
+	os.Chdir(fmt.Sprintf("./%v", projectName))
+
+	gwd, _ := os.Getwd()
+	makeFile("LICENSE", getLicense(license))
+	makeFile("index.html", strings.Replace(HTMLBoilerplate, ":PROJECT_NAME:", projectName, 2))
+	makeFile("README.md", fmt.Sprintf("# %v", projectName))
+
+	makeDir("img")
+	
+	makeDir("css")
+	os.Chdir("./css")
+	makeFile("style.css", "")
+	os.Chdir(gwd)
+
+	makeDir("js")
+	os.Chdir("./js")
+	makeFile("script.js", "")
+	os.Chdir(gwd)
+}
+

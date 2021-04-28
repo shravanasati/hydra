@@ -124,6 +124,8 @@ func main() {
 				pythonInit(projectName, license)
 			case "go":
 				goInit(projectName, license)
+			case "web":
+				webInit(projectName, license)
 			default:
 				fmt.Printf("Unsupported language type: '%v'. Cannot initiate the project.", projectLang)
 			}
