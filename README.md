@@ -13,7 +13,7 @@
 
 - Build project templates with just one command
 - Support for six different licenses
-- Language-specific .gitignore 
+- Language-specific `.gitignore` file
 - Configure default language and default license to work with
 - Fast and reliable
 
@@ -108,7 +108,7 @@ Example: `hydra init myProject python`
 
 In case the `lang` argument is not provided, hydra falls back to the `default-lang` configuration.
 
-*hydra* currently supports only python, go and web-frontend for project creation. But, as new versions are published, support for more languages/frameworks will be added.
+*hydra* currently supports only python, go and web-frontend for project creation. But, as new versions are released, support for more languages/frameworks will be added.
 
 
 ### version
