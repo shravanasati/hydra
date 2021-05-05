@@ -1,5 +1,4 @@
 #!/bin/bash
-chmod +x ./linux_install.sh
 
 echo "Downloading hydra..."
 curl -L "https://github.com/Shravan-1908/hydra/releases/latest/download/hydra-linux-amd64" -o hydra
