@@ -21,6 +21,17 @@
 
 ## ⚡️ Installation
 ### Method 1
+
+Linux users can download hydra using the following command:
+
+```
+curl https://raw.githubusercontent.com/Shravan-1908/hydra/main/linux_install.sh | sudo bash -
+```
+
+That's it.
+
+For Windows/Mac users:
+
 - Download the latest exe release of *hydra* suitable for your OS from [here](https://github.com/Shravan-1908/hydra/releases/latest).
 
 - Rename the downloaded file to `hydra`.
