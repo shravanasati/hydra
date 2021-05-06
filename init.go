@@ -3,7 +3,7 @@ The following code is responsible for the init command.
 
 Author: Shravan Asati
 Originally Written: 28 March 2021
-Last edited: 15 April 2021
+Last edited: 6 May 2021
 */
 
 package main
@@ -212,6 +212,16 @@ var HTMLBoilerplate string = `
 </html>
 `
 
+var cssReset string = `
+* {
+	margin: 0px;
+	padding: 0px;
+	box-sizing: border-box;
+	border: 0;
+	font-size: 100%;
+}
+`
+
 func webInit(projectName, license string) {
 	fmt.Printf("Initialising project: '%v'.\n", projectName)
 
@@ -227,12 +237,61 @@ func webInit(projectName, license string) {
 	
 	makeDir("css")
 	os.Chdir("./css")
-	makeFile("style.css", "")
+	makeFile("style.css", cssReset)
 	os.Chdir(gwd)
 
 	makeDir("js")
 	os.Chdir("./js")
 	makeFile("script.js", "")
 	os.Chdir(gwd)
+
+	e := execute("git", "init")
+	if e != nil {
+		fmt.Println("\n ** Git isn't installed on your system. Cannot initiate a repository.")
+	} else {
+		fmt.Println(" - Intialised a Git repository for your project.")
+	}
 }
 
+func flaskInit(projectName, license string)  {
+	fmt.Printf("Initialising project: '%v'\n.", projectName)
+
+	makeDir(projectName)
+	os.Chdir(fmt.Sprintf("./%v", projectName))
+
+	gwd, _ := os.Getwd()
+	makeFile("LICENSE", getLicense(license))
+	makeFile("README.md", fmt.Sprintf("# %v", projectName))
+	makeFile(".gitignore", getGitignore("python"))
+	makeFile("app.py", "from flask import Flask\n\napp = Flask(__name__)")
+
+
+	makeDir("static")
+	os.Chdir("./static")
+
+	makeDir("images")
+
+	makeDir("scripts")
+	os.Chdir("./scripts")
+	makeFile("script.js", "")
+	os.Chdir("..")
+
+	makeDir("styles")
+	os.Chdir("./styles")
+	
+	makeFile("style.css", cssReset)
+	os.Chdir(gwd)
+
+
+	makeDir("templates")
+	os.Chdir("./templates")
+	makeFile("index.html", strings.Replace(HTMLBoilerplate, ":PROJECT_NAME:", projectName, 2))
+	os.Chdir(gwd)
+
+	e := execute("git", "init")
+	if e != nil {
+		fmt.Println("\n ** Git isn't installed on your system. Cannot initiate a git repository.")
+	} else {
+		fmt.Println("\n - Intialised a Git repository for your project.")
+	}
+}

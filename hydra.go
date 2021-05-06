@@ -126,6 +126,8 @@ func main() {
 				goInit(projectName, license)
 			case "web":
 				webInit(projectName, license)
+			case "flask":
+				flaskInit(projectName, license)
 			default:
 				fmt.Printf("Unsupported language type: '%v'. Cannot initiate the project.", projectLang)
 			}
