@@ -22,23 +22,20 @@
 ## ⚡️ Installation
 ### Method 1
 
-Linux users can download hydra using the following command:
+Linux/Mac users can download hydra using the executing the following command in bash:
 
-```
+```bash
 curl https://raw.githubusercontent.com/Shravan-1908/hydra/main/linux_install.sh | sudo bash -
 ```
 
-That's it.
+For Windows users:
 
-For Windows/Mac users:
+Open powershell as Admin and execute the following command:
+```powershell
+Set-ExecutionPolicy Bypass -Scope Process -Force; (Invoke-WebRequest -Uri https://raw.githubusercontent.com/Shravan-1908/hydra/main/windows_install.ps1 -UseBasicParsing).Content | powershell -
+```
 
-- Download the latest exe release of *hydra* suitable for your OS from [here](https://github.com/Shravan-1908/hydra/releases/latest).
-
-- Rename the downloaded file to `hydra`.
-
-- Add the directory where *hydra* is downloaded to the `PATH` variable of your system, so that you can call hydra in any directory via a terminal. If you don't know how to setup the `PATH` variable, refer these links for [Windows](https://helpdeskgeek.com/windows-10/add-windows-path-environment-variable/), [macOS](https://phoenixnap.com/kb/set-environment-variable-mac) and [Linux](https://opensource.com/article/17/6/set-path-linux).
-
-- To verify installation of *hydra*, open a new shell and execute `hydra -v`. You should see output like this:
+To verify installation of *hydra*, open a new shell and execute `hydra -v`. You should see output like this:
 ```
 hydra 2.0.0
 
