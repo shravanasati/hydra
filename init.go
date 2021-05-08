@@ -3,7 +3,7 @@ The following code is responsible for the init command.
 
 Author: Shravan Asati
 Originally Written: 28 March 2021
-Last edited: 6 May 2021
+Last edited: 8 May 2021
 */
 
 package main
@@ -205,9 +205,13 @@ var HTMLBoilerplate string = `
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>:PROJECT_NAME:</title>
+	:CSS_LINK:
 </head>
+
 <body>
     <h1>:PROJECT_NAME:</h1>
+
+	:SCRIPT_LINK:
 </body>
 </html>
 `
@@ -230,7 +234,11 @@ func webInit(projectName, license string) {
 
 	gwd, _ := os.Getwd()
 	makeFile("LICENSE", getLicense(license))
-	makeFile("index.html", strings.Replace(HTMLBoilerplate, ":PROJECT_NAME:", projectName, 2))
+	
+	indexContent := strings.Replace(HTMLBoilerplate, ":PROJECT_NAME:", projectName, 2)
+	indexContent = strings.Replace(indexContent, ":CSS_LINK:", `<link rel="stylesheet" href="./css/style.css">`, 1)
+	indexContent = strings.Replace(indexContent, ":SCRIPT_LINK:", `<script src="./js/script.js"> </script>`, 1)
+	makeFile("index.html", indexContent)
 	makeFile("README.md", fmt.Sprintf("# %v", projectName))
 
 	makeDir("img")
@@ -253,19 +261,33 @@ func webInit(projectName, license string) {
 	}
 }
 
+var flaskBoilerplate string = `
+from flask import Flask, render_template
+
+app = Flask(__name__)
+
+@app.route("/")
+def home():
+	return render_template('index.html')
+
+app.run(debug=True)
+`
+
 func flaskInit(projectName, license string)  {
 	fmt.Printf("Initialising project: '%v'\n.", projectName)
 
 	makeDir(projectName)
 	os.Chdir(fmt.Sprintf("./%v", projectName))
 
+	// * making basic files
 	gwd, _ := os.Getwd()
 	makeFile("LICENSE", getLicense(license))
 	makeFile("README.md", fmt.Sprintf("# %v", projectName))
 	makeFile(".gitignore", getGitignore("python"))
-	makeFile("app.py", "from flask import Flask\n\napp = Flask(__name__)")
+	makeFile("app.py", flaskBoilerplate)
 
 
+	// * making the static dir which contains images, styles and scripts dir
 	makeDir("static")
 	os.Chdir("./static")
 
@@ -278,16 +300,20 @@ func flaskInit(projectName, license string)  {
 
 	makeDir("styles")
 	os.Chdir("./styles")
-	
 	makeFile("style.css", cssReset)
 	os.Chdir(gwd)
 
 
+	// * making the templates dir
 	makeDir("templates")
 	os.Chdir("./templates")
-	makeFile("index.html", strings.Replace(HTMLBoilerplate, ":PROJECT_NAME:", projectName, 2))
+	indexContent := strings.Replace(HTMLBoilerplate, ":PROJECT_NAME:", projectName, 2)
+	indexContent = strings.Replace(indexContent, ":CSS_LINK:", `<link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}">`, 1)
+	indexContent = strings.Replace(indexContent, ":SCRIPT_LINK:", `<script src=" {{ url_for('static', filename='scripts/script.js') }} "> </script>`, 1)
+	makeFile("index.html", indexContent)
 	os.Chdir(gwd)
 
+	// * initialising git repository
 	e := execute("git", "init")
 	if e != nil {
 		fmt.Println("\n ** Git isn't installed on your system. Cannot initiate a git repository.")
