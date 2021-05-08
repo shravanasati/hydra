@@ -20,14 +20,15 @@ const (
 )
 
 var (
-	supportedLangs []string = []string{"go", "python", "web"}
+	supportedLangs    []string          = []string{"go", "python", "web", "flask", "ruby", "c", "c++"}
 	supportedLicenses map[string]string = map[string]string{
 		"APACHE": "Apache License",
 		"BSD":    "Berkeley Software Distribution 3-Clause",
 		"EPL":    "Eclipse Public License",
 		"GPL":    "GNU General Public License v3",
 		"MIT":    "Massachusetts Institute of Technology License",
-		"MPL":    "Mozilla Public License"}
+		"MPL":    "Mozilla Public License",
+		"UNI":    "The Unilicense"}
 )
 
 func stringInSlice(s string, slice []string) bool {
@@ -106,7 +107,7 @@ func main() {
 			if license == "DEFAULT" {
 				license = getConfig("defaultLicense")
 			}
-			if !stringInSlice(license, []string{"MIT", "BSD", "MPL", "EPL", "GPL", "APACHE"}) {
+			if !stringInSlice(license, []string{"MIT", "BSD", "MPL", "EPL", "GPL", "APACHE", "UNI"}) {
 				fmt.Printf("Invalid value for flag license: '%v'.\n", license)
 				fmt.Println("You've either provided invalid license flag in the init command, or you've set wrong license in your hydra configuration.\nTo see your hydra configuration, execute `hydra list configs`.")
 				return
@@ -128,6 +129,12 @@ func main() {
 				webInit(projectName, license)
 			case "flask":
 				flaskInit(projectName, license)
+			case "c":
+				cInit(projectName, license)
+			case "c++":
+				cppInit(projectName, license)
+			case "ruby":
+				rubyInit(projectName, license)
 			default:
 				fmt.Printf("Unsupported language type: '%v'. Cannot initiate the project.", projectLang)
 			}

@@ -15,38 +15,14 @@ import (
 	"strings"
 	"time"
 	"strconv"
-	"embed"
 )
 
-// just to use the embed package
-var _ embed.FS
-
-
-// * all licenses 
-//go:embed .\licenses\APACHE
-var APACHE string
-//go:embed .\licenses\BSD
-var BSD string
-//go:embed .\licenses\EPL
-var EPL string
-//go:embed .\licenses\GPL
-var GPL string
-//go:embed .\licenses\MIT
-var MIT string
-//go:embed .\licenses\MPL
-var MPL string
-
-// * all gitignores
-//go:embed .\gitignores\go.gitignore
-var goGitignore string
-//go:embed .\gitignores\python.gitignore
-var pythonGitignore string
-
-
+// year returns the current year, used for editing LICENSE file.
 func year() string {
 	return strconv.Itoa(time.Now().Year())
 }
 
+// handleException handles the exception by printing it and exiting the program.
 func handleException(err error) {
 	if err != nil {
 		fmt.Println(err)
@@ -54,6 +30,7 @@ func handleException(err error) {
 	}
 }
 
+// makeFile creates a file with the provided content.
 func makeFile(filename, content string) {
 	f, e := os.Create(filename)
 	handleException(e)
@@ -64,12 +41,14 @@ func makeFile(filename, content string) {
 	fmt.Printf("\n - Created file '%v' at %v.", filename, cwd)
 }
 
+// makeDir creates a directory.
 func makeDir(dirname string) {
 	os.Mkdir(dirname, os.ModePerm)
 	cwd, _ := os.Getwd()
 	fmt.Printf("\n - Created directory '%v' at %v.", dirname, cwd)
 }
 
+// execute executes a command in the shell.
 func execute(base string, command ...string) error {
 	cmd := exec.Command(base, command...)
 	_, err := cmd.Output()
@@ -79,57 +58,58 @@ func execute(base string, command ...string) error {
 	return nil
 }
 
+// getGitignore returns the gitignore variable from static.go, corresponding to the provided language. 
 func getGitignore(language string) string {
 	switch language {
 	case "python":
 		return pythonGitignore
 	case "go":
 		return goGitignore
+	case "c":
+		return cGitignore
+	case "c++":
+		return cppGitignore
+	case "ruby":
+		return rubyGitignore
 	default:
 		return fmt.Sprintf("Unknown language: %v.", language)
 	}
 }
 
+// manipulateLicense replaces the `:NAME:` and `:YEAR:` values of the license with actual values.
+func manipulateLicense(license string) string {
+	licenseText := strings.Replace(license, ":YEAR:", year(), 1)
+	licenseText = strings.Replace(licenseText, ":NAME:", getConfig("fullName"), 1)
+
+	return licenseText
+}
+
+// getGitignore returns the license variable from static.go, corresponding to the provided license. 
 func getLicense(license string) string {
 	switch license {
 	case "MIT":
-		licenseText := MIT
-		licenseText = strings.Replace(licenseText, ":YEAR:", year(), 1)
-		licenseText = strings.Replace(licenseText, ":NAME:", getConfig("fullName"), 1)
-		return licenseText
+		return manipulateLicense(MIT)
 	case "BSD":
-		licenseText := BSD
-		licenseText = strings.Replace(licenseText, ":YEAR:", year(), 1)
-		licenseText = strings.Replace(licenseText, ":NAME:", getConfig("fullName"), 1)
-		return licenseText
+		return manipulateLicense(BSD)
 	case "APACHE":
-		licenseText := APACHE
-		licenseText = strings.Replace(licenseText, ":YEAR:", year(), 1)
-		licenseText = strings.Replace(licenseText, ":NAME:", getConfig("fullName"), 1)
-		return licenseText
+		return manipulateLicense(APACHE)
 	case "EPL":
-		licenseText := EPL
-		licenseText = strings.Replace(licenseText, ":YEAR:", year(), 1)
-		licenseText = strings.Replace(licenseText, ":NAME:", getConfig("fullName"), 1)
-		return licenseText
+		return manipulateLicense(EPL)
 	case "MPL":
-		licenseText := MPL
-		licenseText = strings.Replace(licenseText, ":YEAR:", year(), 1)
-		licenseText = strings.Replace(licenseText, ":NAME:", getConfig("fullName"), 1)
-		return licenseText
+		return manipulateLicense(MPL)
 	case "GPL":
-		licenseText := GPL
-		licenseText = strings.Replace(licenseText, ":YEAR:", year(), 1)
-		licenseText = strings.Replace(licenseText, ":NAME:", getConfig("fullName"), 1)
-		return licenseText
+		return manipulateLicense(GPL)
+	case "UNI":
+		return manipulateLicense(UNI)
 	default:
 		return fmt.Sprintf("Undefined license: %v.", license)
 	}
-	
 }
 
+
+// pythonInit is the python project initialisation function.
 func pythonInit(projectName, license string) {
-	fmt.Printf("Initialising project: '%v'.\n", projectName)
+	fmt.Printf("Initialising project: '%v' in Python.\n", projectName)
 
 	makeDir(projectName)
 	os.Chdir(fmt.Sprintf("./%v", projectName))
@@ -138,7 +118,12 @@ func pythonInit(projectName, license string) {
 	makeFile("LICENSE", getLicense(license))
 	makeFile("README.md", fmt.Sprintf("# %v", projectName))
 	makeFile(".gitignore", getGitignore("python"))
-	makeFile("setup.py", "from setuptools import setup \n\nsetup()")
+
+	setupContent = strings.Replace(setupContent, ":PROJECT_NAME:", projectName, 2)
+	setupContent = strings.Replace(setupContent, ":LICENSE:", license, 1)
+	setupContent = strings.Replace(setupContent, ":GITHUB:", getConfig("githubUsername"), 1)
+	setupContent = strings.Replace(setupContent, ":AUTHOR_NAME:", getConfig("fullName"), 1)
+	makeFile("setup.py", setupContent)
 
 	makeDir(projectName)
 	os.Chdir(fmt.Sprintf("./%v", projectName))
@@ -159,8 +144,10 @@ func pythonInit(projectName, license string) {
 	}
 }
 
+
+// goInit is the go project initialisation function.
 func goInit(projectName, license string) {
-	fmt.Printf("Initialising project: '%v'\n.", projectName)
+	fmt.Printf("Initialising project: '%v' in Go.\n", projectName)
 
 	makeDir(projectName)
 	os.Chdir(fmt.Sprintf("./%v", projectName))
@@ -197,37 +184,10 @@ func goInit(projectName, license string) {
 	}
 }
 
-var HTMLBoilerplate string = `
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>:PROJECT_NAME:</title>
-	:CSS_LINK:
-</head>
 
-<body>
-    <h1>:PROJECT_NAME:</h1>
-
-	:SCRIPT_LINK:
-</body>
-</html>
-`
-
-var cssReset string = `
-* {
-	margin: 0px;
-	padding: 0px;
-	box-sizing: border-box;
-	border: 0;
-	font-size: 100%;
-}
-`
-
+// webInit is the web-frontend project initialisation function.
 func webInit(projectName, license string) {
-	fmt.Printf("Initialising project: '%v'.\n", projectName)
+	fmt.Printf("Initialising project: '%v' in Web-frontend.\n", projectName)
 
 	makeDir(projectName)
 	os.Chdir(fmt.Sprintf("./%v", projectName))
@@ -261,20 +221,10 @@ func webInit(projectName, license string) {
 	}
 }
 
-var flaskBoilerplate string = `
-from flask import Flask, render_template
 
-app = Flask(__name__)
-
-@app.route("/")
-def home():
-	return render_template('index.html')
-
-app.run(debug=True)
-`
-
+// flaskInit is the python-flask project initialisation function.
 func flaskInit(projectName, license string)  {
-	fmt.Printf("Initialising project: '%v'\n.", projectName)
+	fmt.Printf("Initialising project: '%v' in Python-Flask\n.", projectName)
 
 	makeDir(projectName)
 	os.Chdir(fmt.Sprintf("./%v", projectName))
@@ -314,6 +264,128 @@ func flaskInit(projectName, license string)  {
 	os.Chdir(gwd)
 
 	// * initialising git repository
+	e := execute("git", "init")
+	if e != nil {
+		fmt.Println("\n ** Git isn't installed on your system. Cannot initiate a git repository.")
+	} else {
+		fmt.Println("\n - Intialised a Git repository for your project.")
+	}
+}
+
+
+// cInit is the C project initialisation function.
+func cInit(projectName, license string) {
+	fmt.Printf("Initialising project: '%v' in C.\n", projectName)
+
+	makeDir(projectName)
+	os.Chdir(fmt.Sprintf("./%v", projectName))
+
+	gwd, _ := os.Getwd()
+	makeFile("LICENSE", getLicense(license))
+	makeFile("README.md", fmt.Sprintf("# %v", projectName))
+	makeFile(".gitignore", getGitignore("c"))
+	makeFile("Makefile.am", "")
+
+	makeDir("src")
+	os.Chdir("./src")
+	makeFile("Makefile.am", "")
+	makeFile("main.c", "")
+	makeFile("main.h", "")
+	os.Chdir(gwd)
+
+	makeDir("tests")
+	os.Chdir("./tests")
+	makeFile("Makefile.am", "")
+	makeFile(fmt.Sprintf("%v_test.c", projectName), "")
+	os.Chdir(gwd)
+
+	makeDir("libs")
+	os.Chdir("../libs")
+	makeFile("Makefile.am", "")
+
+	e := execute("git", "init")
+	if e != nil {
+		fmt.Println("\n ** Git isn't installed on your system. Cannot initiate a repository.")
+	} else {
+		fmt.Println(" - Intialised a Git repository for your project.")
+	}
+}
+
+// cppInit is the C++ project initialisation function.
+func cppInit(projectName, license string) {
+	fmt.Printf("Initialising project: '%v' in C++.\n", projectName)
+
+	makeDir(projectName)
+	os.Chdir(fmt.Sprintf("./%v", projectName))
+
+	gwd, _ := os.Getwd()
+	makeFile("LICENSE", getLicense(license))
+	makeFile("README.md", fmt.Sprintf("# %v", projectName))
+	makeFile(".gitignore", getGitignore("c++"))
+	makeFile("CMakeLists.txt", "")
+
+	makeDir("src")
+	os.Chdir("./src")
+	makeFile("main.cpp", "")
+	makeFile("main.h", "")
+	os.Chdir(gwd)
+
+	makeDir("include")
+	os.Chdir("./include")
+	makeDir(projectName)
+	os.Chdir(fmt.Sprintf("./%v", projectName))
+	makeFile("header.h", "")
+	os.Chdir(gwd)
+
+	makeDir("tests")
+	os.Chdir("./tests")
+	makeFile(fmt.Sprintf("%v_test.cpp", projectName), "")
+	os.Chdir(gwd)
+
+	makeDir("libs")
+
+	e := execute("git", "init")
+	if e != nil {
+		fmt.Println("\n ** Git isn't installed on your system. Cannot initiate a repository.")
+	} else {
+		fmt.Println(" - Intialised a Git repository for your project.")
+	}
+}
+
+
+// rubyInit is the ruby project initialisation function.
+func rubyInit(projectName, license string) {
+	fmt.Printf("Initialising project: '%v' in Ruby.\n", projectName)
+
+	makeDir(projectName)
+	os.Chdir(fmt.Sprintf("./%v", projectName))
+
+	gwd, _ := os.Getwd()
+	makeFile("LICENSE", getLicense(license))
+	makeFile("README.md", fmt.Sprintf("# %v", projectName))
+	makeFile(".gitignore", getGitignore("ruby"))
+
+	makeFile("Gemfile", "")
+	makeFile("Rakefile", "")
+
+	gemspecContent = strings.Replace(gemspecContent, ":PROJECT_NAME:", projectName, 4)
+	gemspecContent = strings.Replace(gemspecContent, ":LICENSE:", license, 1)
+	gemspecContent = strings.Replace(gemspecContent, ":GITHUB:", getConfig("githubUsername"), 1)
+	gemspecContent = strings.Replace(gemspecContent, ":AUTHOR_NAME:", getConfig("fullName"), 1)
+	makeFile(fmt.Sprintf("%v.gemspec", projectName), gemspecContent)
+
+	makeDir("bin")
+
+	makeDir("lib")
+	os.Chdir("./lib")
+	makeFile(fmt.Sprintf("%v.rb", projectName), "")
+	os.Chdir(gwd)
+
+	makeDir("tests")
+	os.Chdir("./tests")
+	makeFile(fmt.Sprintf("test_%v.rb", projectName), "")
+	os.Chdir(gwd)
+
 	e := execute("git", "init")
 	if e != nil {
 		fmt.Println("\n ** Git isn't installed on your system. Cannot initiate a git repository.")

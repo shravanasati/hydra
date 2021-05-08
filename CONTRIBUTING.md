@@ -8,7 +8,7 @@ The following is a set of guidelines for contributing to *hydra*, which is hoste
 ## Project Structure
 ```
 ├── .github
-|  ├── ISSUE_TEMPLATE           # issue templeates
+|  ├── ISSUE_TEMPLATE           # issue templates
 |  |  ├── bug_report.md
 |  |  ├── custom.md
 |  |  └── feature_request.md
@@ -26,9 +26,12 @@ The following is a set of guidelines for contributing to *hydra*, which is hoste
 ├── gitignores                  # all gitignores
 |  ├── go.gitignore
 |  └── python.gitignore
+|  └── ruby.gitignore
+|  └── c.gitignore
+|  └── c++.gitignore
 ├── go.mod
 ├── go.sum
-├── hydra.go                    # main code of cli
+├── hydra.go                    # main code for the cli
 ├── hydra_test.go               # unittests for hydra
 ├── init.go                     # init command code
 ├── list.go                     # list command code
@@ -39,6 +42,7 @@ The following is a set of guidelines for contributing to *hydra*, which is hoste
    ├── GPL
    ├── MIT
    └── MPL
+   └── UNI
 ```
 
 ## Setup Development Environment

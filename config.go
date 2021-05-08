@@ -44,7 +44,7 @@ func readJson(jsonString string) *Configuration {
 
 func getConfig(value string) string {
 	usr, _ := user.Current()
-	configFile := (filepath.Join(usr.HomeDir, "hydra_config.json"))
+	configFile := (filepath.Join(usr.HomeDir, ".hydra/hydra_config.json"))
 	file, ferr := os.Open(configFile)
 	handleException(ferr)
 	wholeText := ""
@@ -72,7 +72,7 @@ func getConfig(value string) string {
 
 func checkForCorrectConfig() bool {
 	usr, _ := user.Current()
-	configFile := (filepath.Join(usr.HomeDir, "hydra_config.json"))
+	configFile := (filepath.Join(usr.HomeDir, ".hydra/hydra_config.json"))
 	file, ferr := os.Open(configFile)
 	handleException(ferr)
 	wholeText := ""
@@ -95,7 +95,7 @@ func checkForCorrectConfig() bool {
 func config(fullName, githubUsername, defaultLang, defaultLicense string) {
 	// * defining path of hydra config file
 	usr, _ := user.Current()
-	configFile := filepath.Join(usr.HomeDir, "hydra_config.json")
+	configFile := filepath.Join(usr.HomeDir, ".hydra/hydra_config.json")
 	_, e := os.Stat(configFile)
 	
 	// * creating a file in case it doesnt exists
