@@ -22,24 +22,35 @@
 ## ⚡️ Installation
 ### Method 1
 
-Linux/Mac users can download hydra using the executing the following command in bash:
+**For Linux users:**
+
+Execute the following command in bash:
 
 ```bash
 curl https://raw.githubusercontent.com/Shravan-1908/hydra/main/linux_install.sh | sudo bash -
 ```
 
-For Windows users:
 
-Open powershell as Admin and execute the following command:
+**For MacOS users:**
+
+Execute the following command in bash:
+
+```bash
+curl https://raw.githubusercontent.com/Shravan-1908/hydra/main/macos_install.sh | sudo bash -
+```
+
+**For Windows users:**
+
+Open Powershell **as Admin** and execute the following command:
 ```powershell
 Set-ExecutionPolicy Bypass -Scope Process -Force; (Invoke-WebRequest -Uri https://raw.githubusercontent.com/Shravan-1908/hydra/main/windows_install.ps1 -UseBasicParsing).Content | powershell -
 ```
 
-To verify installation of *hydra*, open a new shell and execute `hydra -v`. You should see output like this:
+To verify the installation of *hydra*, open a new shell and execute `hydra -v`. You should see output like this:
 ```
-hydra 2.0.0
+hydra 2.2.0
 
-Version: 2.0.0
+Version: 2.2.0
 ```
 If the output isn't something like this, you need to repeat the above steps carefully.
 
@@ -49,7 +60,7 @@ If you've Go installed on your system, execute:
 
 `go get github.com/Shravan-1908/hydra`
 
-You don't need to change the PATH variable in this case, as Go will automatically build and add the executable in the $GOPATH/bin directory.
+You don't need to change the PATH variable in this case, as Go will automatically build and add the executable in the `$GOPATH/bin` directory.
 
 <br>
 
@@ -72,6 +83,10 @@ It is used to initiate the modules in go.
     * go
     * python
     * web
+    * flask
+    * c
+    * c++
+    * ruby
 
 - `default-license` --> The default license for project creation. Valid values are:
     * MIT
@@ -80,6 +95,7 @@ It is used to initiate the modules in go.
     * APACHE
     * EPL
     * MPL
+    * UNI
 
 Once hydra is installed, it is advised to run the following command to complete the configuration.
 
@@ -111,12 +127,15 @@ Valid options for the language argument are:
 - python
 - go
 - web
+- flask
+- c
+- c++
+- ruby
 
 Example: `hydra init myProject python`
 
 In case the `lang` argument is not provided, hydra falls back to the `default-lang` configuration.
 
-*hydra* currently supports only python, go and web-frontend for project creation. But, as new versions are released, support for more languages/frameworks will be added.
 
 
 ### version
@@ -132,17 +151,19 @@ Renders assistance for *hydra* on a terminal, briefly showing its usage.
 <br>
 
 ## ⏩ Change Log
-The changes made in the latest version of hydra, *v2.0.1* are:
+The changes made in the latest version of hydra, *v2.2.0* are:
 
-- Made a separate 'list.go' file for the `list` command
-- CI build bug fix (redefined embed paths for licenses and gitignores)
+- Added flask (python web framework), C, C++, and ruby as language types for project initialisation
+- Improved web initialisation
+- Added support for Unilicense
+- Changed the hydra config directory
 
 View [CHANGELOG.md](CHANGELOG.md) for more information.
 
 <br>
 
 ## 🔖 Versioning
-*hydra* releases follow semantic versioning, where every release is in the *x.y.z* form, where:
+*hydra* releases follow semantic versioning, every release is in the *x.y.z* form, where:
 - *x* is the MAJOR version and is incremented when a backwards incompatible change to hydra is made.
 - *y* is the MINOR version and is incremented when a backwards compatible change to hydra is made, like changing dependencies or adding a new function, method, struct field, or type.
 - *z* is the PATCH version and is incremented after making minor changes that don't affect hydra's public API or dependencies, like fixing a bug.
@@ -151,7 +172,7 @@ View [CHANGELOG.md](CHANGELOG.md) for more information.
 
 ## 📄 License
 License
-© 2021 Shravan Asati
+© 2021-Present Shravan Asati
 
 This repository is licensed under the MIT license. See [LICENSE](LICENSE) for details.
 

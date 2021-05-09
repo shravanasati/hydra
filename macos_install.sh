@@ -1,14 +1,12 @@
+
 #!/bin/bash
 
 echo "Downloading hydra..."
-curl -L "https://github.com/Shravan-1908/hydra/releases/latest/download/hydra-linux-amd64" -o hydra
+curl -L "https://github.com/Shravan-1908/hydra/releases/latest/download/hydra-darwin-amd64" -o hydra
 
 echo "Adding hydra into PATH..."
 
-mkdir -p ~/.hydra
-
-chmod u+x ./hydra
-
+mkdir -p ~/.hydra;
 mv ./hydra ~/.hydra
 echo "export PATH=$PATH:~/.hydra" >> ~/.bashrc
 
