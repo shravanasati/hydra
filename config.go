@@ -43,8 +43,11 @@ func readJson(jsonString string) *Configuration {
 }
 
 func getConfig(value string) string {
+	// to make sure the config file exists
+	config("default", "default", "default", "default")
+
 	usr, _ := user.Current()
-	configFile := (filepath.Join(usr.HomeDir, ".hydra/hydra_config.json"))
+	configFile := (filepath.Join(usr.HomeDir, ".hydra/config.json"))
 	file, ferr := os.Open(configFile)
 	handleException(ferr)
 	wholeText := ""
@@ -71,8 +74,11 @@ func getConfig(value string) string {
 } 
 
 func checkForCorrectConfig() bool {
+	// to make sure the config file exists
+	config("default", "default", "default", "default")
+
 	usr, _ := user.Current()
-	configFile := (filepath.Join(usr.HomeDir, ".hydra/hydra_config.json"))
+	configFile := (filepath.Join(usr.HomeDir, ".hydra/config.json"))
 	file, ferr := os.Open(configFile)
 	handleException(ferr)
 	wholeText := ""
@@ -92,14 +98,24 @@ func checkForCorrectConfig() bool {
 	}
 }
 
+func exists(path string) (bool, error) {
+    _, err := os.Stat(path)
+    if err == nil { return true, nil }
+    if os.IsNotExist(err) { return false, nil }
+    return false, err
+}
+
 func config(fullName, githubUsername, defaultLang, defaultLicense string) {
 	// * defining path of hydra config file
 	usr, _ := user.Current()
-	configFile := filepath.Join(usr.HomeDir, ".hydra/hydra_config.json")
-	_, e := os.Stat(configFile)
+	hydraDir := filepath.Join(usr.HomeDir, ".hydra")
+	
+	if pathOk, _ := exists(hydraDir); !pathOk { os.Mkdir(hydraDir, os.ModePerm) }
+
+	configFile := filepath.Join(hydraDir,"config.json")
 	
 	// * creating a file in case it doesnt exists
-	if e != nil {
+	if configOk, _ := exists(configFile); !configOk {
 		f, err := os.Create(configFile)
 		handleException(err)
 		defaultConfig := Configuration{FullName: "", GithubUsername: "", DefaultLang: "", DefaultLicense: "MIT"}

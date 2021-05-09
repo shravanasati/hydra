@@ -59,7 +59,7 @@ func generateRandom(value string) string {
 }
 
 func TestConfig(t *testing.T) {
-	// * the below line is to ensure the `hydra_config.json` file exists
+	// * the below line is to ensure the `config.json` file exists
 	config("default", "default", "default", "default")
 
 	// * getting all initial values so that after the tests, the cleanup function can restore the configuration

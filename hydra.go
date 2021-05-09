@@ -16,7 +16,7 @@ import (
 
 const (
 	NAME    string = "hydra"
-	VERSION string = "2.1.0"
+	VERSION string = "2.2.0"
 )
 
 var (
@@ -92,7 +92,7 @@ func main() {
 		SetShortDescription("Intialises the project structure.").
 		SetDescription("Intialises the project structure.\n\nUsage: \n name : project name \n lang : programming language in which the project is being built.").
 		AddArgument("name", "Name of the project", "").
-		AddArgument("lang", "Language/framework of the project.", "default").
+		AddArgument("lang", "Language/framework of the project. To view valid options for the this parameter, execute `hydra list langs`.", "default").
 		AddFlag("license", "The license to initialise the project with.", commando.String, "default").
 		SetAction(func(args map[string]commando.ArgValue, flags map[string]commando.FlagValue) {
 
