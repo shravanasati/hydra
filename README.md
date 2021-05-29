@@ -27,7 +27,11 @@
 Execute the following command in bash:
 
 ```bash
-curl https://raw.githubusercontent.com/Shravan-1908/hydra/main/linux_install.sh | sudo bash -
+curl https://raw.githubusercontent.com/Shravan-1908/hydra/main/linux_install.sh > hydra_install.sh
+
+chmod +x ./hydra_install.sh
+
+bash ./hydra_install.sh
 ```
 
 
@@ -36,7 +40,11 @@ curl https://raw.githubusercontent.com/Shravan-1908/hydra/main/linux_install.sh 
 Execute the following command in bash:
 
 ```bash
-curl https://raw.githubusercontent.com/Shravan-1908/hydra/main/macos_install.sh | sudo bash -
+curl https://raw.githubusercontent.com/Shravan-1908/hydra/main/macos_install.sh > hydra_install.sh
+
+chmod +x ./hydra_install.sh
+
+bash ./hydra_install.sh
 ```
 
 **For Windows users:**
