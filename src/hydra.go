@@ -41,8 +41,8 @@ func stringInSlice(s string, slice []string) bool {
 	return false
 }
 
-func checkProjectName(projectName string) bool {
-	match, _ := regexp.MatchString(`\.\?\*\:\,\'\"\|\\\/<>`, projectName)
+func wrongProjectName(projectName string) bool {
+	match, _ := regexp.MatchString(`\.|\?|\*|\:|\,|\'|\"|\||\|\|/<|>`, projectName)
 	return match
 }
 
@@ -128,8 +128,8 @@ func main() {
 			projectName := args["name"].Value
 
 			// * checking the project name
-			if !checkProjectName(projectName) {
-				fmt.Printf(`Error: Invalid project name: '%v'. Characters like (, " | \ ? / : ; < >) are not allowed in filenames.`, projectName)
+			if wrongProjectName(projectName) {
+				fmt.Printf(`Error: Invalid project name: '%v'. Characters like (, " | \ ? / : ; < >) are not allowed in filenames.` + "\n", projectName)
 				return
 			}
 
