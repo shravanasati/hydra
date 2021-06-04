@@ -3,7 +3,7 @@ Code responsible for the hydra CLI.
 
 Author: Shravan Asati
 Originally Written: 27 March 2021
-Last edited: 6 May 2021
+Last edited: 4 June 2021
 */
 
 package main
@@ -149,7 +149,7 @@ func main() {
 			case "ruby":
 				rubyInit(projectName, license)
 			default:
-				fmt.Printf("Unsupported language type: '%v'. Cannot initiate the project.", projectLang)
+				fmt.Printf("Unsupported language type: '%v'. Cannot initiate the project. \nHint: You've either a typo at the language name, or the hydra default language configuration is wrong.", projectLang)
 			}
 		})
 
