@@ -1,0 +1,12 @@
+Gem::Specification.new do |s|
+	s.name        = ":PROJECT_NAME:"
+	s.version     = '1.0.0'
+	s.license     = ":LICENSE:"
+	s.summary     = "Project summary here"
+	s.description = "Much longer explanation of the project."
+	s.authors     = [":AUTHOR_NAME:"]
+	s.email       = 'Your email here.'
+	s.files       = ["lib/:PROJECT_NAME:.rb"]
+	s.homepage    = 'https://rubygems.org/gems/:PROJECT_NAME:'
+	s.metadata    = { "source_code_uri" => "https://github.com/:GITHUB:/:PROJECT_NAME:" }
+end
