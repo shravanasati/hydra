@@ -18,3 +18,6 @@ tempCodeRunnerFile.go
 
 # Dependency directories (remove the comment below to include it)
 # vendor/
+
+# Test Coverage
+coverage.html

@@ -37,19 +37,16 @@ This file shows how the project structure for each language hydra supports looks
 ### web
 
 ```
-└── flaskDemo
+└── webDemo
    ├── .gitignore
    ├── LICENSE
    ├── README.md
-   ├── app.py
-   ├── static
-   |  ├── images
-   |  ├── scripts
-   |  |  └── script.js
-   |  └── styles
-   |     └── style.css
-   └── templates
-      └── index.html
+   ├── css
+   |  └── style.css
+   ├── img
+   ├── index.html
+   └── js
+      └── script.js
 ```
 
 ### flask

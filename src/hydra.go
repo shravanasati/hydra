@@ -11,8 +11,8 @@ package main
 import (
 	"fmt"
 	"github.com/thatisuday/commando"
-	"strings"
 	"regexp"
+	"strings"
 )
 
 const (
@@ -129,14 +129,14 @@ func main() {
 
 			// * checking the project name
 			if wrongProjectName(projectName) {
-				fmt.Printf(`Error: Invalid project name: '%v'. Characters like (, " | \ ? / : ; < >) are not allowed in filenames.` + "\n", projectName)
+				fmt.Printf(`Error: Invalid project name: '%v'. Characters like (, " | \ ? / : ; < >) are not allowed in filenames.`+"\n", projectName)
 				return
 			}
 
 			init := Initialiser{
 				projectName: projectName,
-				license: license,
-				lang: projectLang,
+				license:     license,
+				lang:        projectLang,
 			}
 			switch projectLang {
 			case "python":

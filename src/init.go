@@ -171,9 +171,6 @@ func (init *Initialiser) goInit() {
 	makeFile(fmt.Sprintf("%v_test.go", init.projectName), "package main")
 	os.Chdir(gwd)
 
-	makeDir("bin")
-	makeDir("pkg")
-
 	e := execute("go", "mod", "init", fmt.Sprintf("github.com/%v/%v", getConfig("githubUsername"), init.projectName))
 	if e != nil {
 		fmt.Println("\n ** Go isn't installed on your system. Cannot enable dependency tracking.")
