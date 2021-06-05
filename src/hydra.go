@@ -167,4 +167,5 @@ func main() {
 		})
 
 	commando.Parse(nil)
+	deletePreviousInstallation()
 }

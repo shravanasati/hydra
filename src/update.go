@@ -3,9 +3,11 @@ package main
 import (
 	"fmt"
 	"io"
+	"io/ioutil"
 	"net/http"
 	"os"
 	"runtime"
+	"strings"
 )
 
 
@@ -48,9 +50,11 @@ func update() {
 	downloadPath += "/.hydra/hydra"
 	if runtime.GOOS == "windows" {downloadPath += ".exe"}
 
+	os.Rename(downloadPath, downloadPath + "-old")
+
 	exe, er := os.Create(downloadPath)
 	if er != nil {
-		fmt.Println("Error: Unable to write the executable.")
+		fmt.Println("Error: Unable to access file permissions.")
 		fmt.Println(er)
 		return
 	}
@@ -70,4 +74,19 @@ func update() {
 	}
 
 	fmt.Println("Update completed!")
+}
+
+func deletePreviousInstallation() {
+	hydraDir, _ := os.UserHomeDir()
+	
+	hydraDir += "/.hydra"
+
+	files, _ := ioutil.ReadDir(hydraDir)
+	for _, f := range files {
+		if strings.HasSuffix(f.Name(), "-old") {
+			// fmt.Println("found existsing installation")
+			os.Remove(hydraDir + "/" + f.Name())
+		}
+		// fmt.Println(f.Name())
+	}
 }
