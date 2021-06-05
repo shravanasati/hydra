@@ -133,21 +133,26 @@ func main() {
 				return
 			}
 
+			init := Initialiser{
+				projectName: projectName,
+				license: license,
+				lang: projectLang,
+			}
 			switch projectLang {
 			case "python":
-				pythonInit(projectName, license)
+				init.pythonInit()
 			case "go":
-				goInit(projectName, license)
+				init.goInit()
 			case "web":
-				webInit(projectName, license)
+				init.webInit()
 			case "flask":
-				flaskInit(projectName, license)
+				init.flaskInit()
 			case "c":
-				cInit(projectName, license)
+				init.cInit()
 			case "c++":
-				cppInit(projectName, license)
+				init.cppInit()
 			case "ruby":
-				rubyInit(projectName, license)
+				init.rubyInit()
 			default:
 				fmt.Printf("Unsupported language type: '%v'. Cannot initiate the project. \nHint: You've either a typo at the language name, or the hydra default language configuration is wrong.", projectLang)
 			}

@@ -117,7 +117,12 @@ func TestPythonInit(t *testing.T) {
 	rlicense := generateRandom("license")
 	rprojectName := generateRandom("name")
 
-	pythonInit(rprojectName, rlicense)
+	init := Initialiser{
+		projectName: rprojectName,
+		license: rlicense,
+		lang: "python",
+	}
+	init.pythonInit()
 
 	// * getting all files present in the directory
 	files, e := ioutil.ReadDir("./")
@@ -165,8 +170,12 @@ func TestGoInit(t *testing.T) {
 	// * generating random project name and license for initialisation
 	rlicense := generateRandom("license")
 	rprojectName := generateRandom("name")
-
-	goInit(rprojectName, rlicense)
+	init := Initialiser{
+		projectName: rprojectName,
+		license: rlicense,
+		lang: "python",
+	}
+	init.goInit()
 
 	// * getting contents of the project initialised
 	projectFiles, er := ioutil.ReadDir("./")
