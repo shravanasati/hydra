@@ -12,7 +12,7 @@
 ## ✨ Features
 
 - Build project templates with just one command
-- Support for six different licenses
+- Support for seven different licenses
 - Language-specific `.gitignore` file
 - Configure default language and default license to work with
 - Fast and reliable
@@ -144,6 +144,7 @@ Example: `hydra init myProject python`
 
 In case the `lang` argument is not provided, hydra falls back to the `default-lang` configuration.
 
+You can view the [structures.md](structures.md) file to see the project structure hydra creates for every language it supports.
 
 
 ### version
