@@ -157,6 +157,14 @@ func main() {
 				fmt.Printf("Unsupported language type: '%v'. Cannot initiate the project. \nHint: You've either a typo at the language name, or the hydra default language configuration is wrong.", projectLang)
 			}
 		})
+	
+	commando.
+		Register("update").
+		SetShortDescription("The update command updates hydra to the latest release.").
+		SetDescription("The update command downloads and installs the latest hydra release.").
+		SetAction(func(args map[string]commando.ArgValue, flags map[string]commando.FlagValue) {
+			update()
+		})
 
 	commando.Parse(nil)
 }
