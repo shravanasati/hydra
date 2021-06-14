@@ -1,0 +1,21 @@
+{
+    "file:LICENSE": "$license",
+    "file:README.md": "# $projectName",
+    "file:.gitignore": "$gitignore",
+
+    "file:setup.py": "$pythonSetup",
+
+    "dir:$projectName": {
+        "file:__init__.py": "",
+        "file:$projectName.py": ""
+    },
+
+    "dir:tests": {
+        "file:__init__.py": "",
+        "file:test_$projectName.py": ""
+    },
+
+    "commands": [
+        "git init"
+    ]
+}

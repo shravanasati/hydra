@@ -17,15 +17,14 @@ import (
 	"path/filepath"
 )
 
-
 type Configuration struct {
-	FullName string `json:"FullName"`
+	FullName       string `json:"FullName"`
 	GithubUsername string `json:"GithubUsername"`
-	DefaultLang string `json:"DefaultLang"`
+	DefaultLang    string `json:"DefaultLang"`
 	DefaultLicense string `json:"DefaultLicense"`
 }
 
-func jsonify(config *Configuration) (string) {
+func jsonifyConfig(config *Configuration) string {
 	byteArray, err := json.Marshal(config)
 	if err != nil {
 		panic(err)
@@ -33,7 +32,7 @@ func jsonify(config *Configuration) (string) {
 	return string(byteArray)
 }
 
-func readJson(jsonString string) *Configuration {
+func readConfig(jsonString string) *Configuration {
 	var result *Configuration
 	err := json.Unmarshal([]byte(jsonString), &result)
 	if err != nil {
@@ -50,15 +49,15 @@ func getConfig(value string) string {
 	configFile := (filepath.Join(usr.HomeDir, ".hydra/config.json"))
 	file, ferr := os.Open(configFile)
 	handleException(ferr)
+	defer file.Close()
 	wholeText := ""
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
 		line := scanner.Text()
 		wholeText = wholeText + line
 	}
-	file.Close()
 
-	config := readJson(wholeText)
+	config := readConfig(wholeText)
 	switch value {
 	case "fullName":
 		return config.FullName
@@ -71,7 +70,7 @@ func getConfig(value string) string {
 	default:
 		return fmt.Sprintf("Undefined value: %v.", value)
 	}
-} 
+}
 
 func checkForCorrectConfig() bool {
 	// to make sure the config file exists
@@ -89,8 +88,8 @@ func checkForCorrectConfig() bool {
 	}
 	file.Close()
 
-	config := readJson(wholeText)
-	
+	config := readConfig(wholeText)
+
 	if config.FullName == "" || config.GithubUsername == "" {
 		return false
 	} else {
@@ -99,27 +98,33 @@ func checkForCorrectConfig() bool {
 }
 
 func exists(path string) (bool, error) {
-    _, err := os.Stat(path)
-    if err == nil { return true, nil }
-    if os.IsNotExist(err) { return false, nil }
-    return false, err
+	_, err := os.Stat(path)
+	if err == nil {
+		return true, nil
+	}
+	if os.IsNotExist(err) {
+		return false, nil
+	}
+	return false, err
 }
 
 func config(fullName, githubUsername, defaultLang, defaultLicense string) {
 	// * defining path of hydra config file
 	usr, _ := user.Current()
 	hydraDir := filepath.Join(usr.HomeDir, ".hydra")
-	
-	if pathOk, _ := exists(hydraDir); !pathOk { os.Mkdir(hydraDir, os.ModePerm) }
 
-	configFile := filepath.Join(hydraDir,"config.json")
-	
+	if pathOk, _ := exists(hydraDir); !pathOk {
+		os.Mkdir(hydraDir, os.ModePerm)
+	}
+
+	configFile := filepath.Join(hydraDir, "config.json")
+
 	// * creating a file in case it doesnt exists
 	if configOk, _ := exists(configFile); !configOk {
 		f, err := os.Create(configFile)
 		handleException(err)
 		defaultConfig := Configuration{FullName: "", GithubUsername: "", DefaultLang: "", DefaultLicense: "MIT"}
-		_, er := f.WriteString(jsonify(&defaultConfig))
+		_, er := f.WriteString(jsonifyConfig(&defaultConfig))
 		handleException(er)
 		f.Close()
 	}
@@ -127,17 +132,16 @@ func config(fullName, githubUsername, defaultLang, defaultLicense string) {
 	// * reading data from the file
 	file, ferr := os.Open(configFile)
 	handleException(ferr)
+	defer file.Close()
 	wholeText := ""
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
 		line := scanner.Text()
 		wholeText = wholeText + line
 	}
-	file.Close()
-	
 
 	// * writing new config to the file by first deleting it
-	configStruct := readJson(wholeText)
+	configStruct := readConfig(wholeText)
 	if fullName != "default" {
 		configStruct.FullName = fullName
 		fmt.Printf("Successfully configured the full name to '%v'. \n", fullName)
@@ -161,7 +165,7 @@ func config(fullName, githubUsername, defaultLang, defaultLicense string) {
 	os.Remove(configFile)
 	f, err := os.Create(configFile)
 	handleException(err)
-	_, er := f.WriteString(jsonify(configStruct))
+	_, er := f.WriteString(jsonifyConfig(configStruct))
 	handleException(er)
 	f.Close()
 }

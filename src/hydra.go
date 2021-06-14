@@ -89,7 +89,11 @@ func main() {
 		AddFlag("default-lang", "The user's default language for project initialisation.", commando.String, "default").
 		AddFlag("default-license", "The user's default license for project initialisation.", commando.String, "default").
 		SetAction(func(args map[string]commando.ArgValue, flags map[string]commando.FlagValue) {
-			config(flags["name"].Value.(string), flags["github-username"].Value.(string), flags["default-lang"].Value.(string), flags["default-license"].Value.(string))
+			config(
+				flags["name"].Value.(string), 
+				flags["github-username"].Value.(string), 
+				flags["default-lang"].Value.(string), 
+				strings.ToUpper(flags["default-license"].Value.(string)))
 		})
 
 	// * the init command
@@ -133,7 +137,7 @@ func main() {
 				return
 			}
 
-			init := Initialiser{
+			init := Initializer{
 				projectName: projectName,
 				license:     license,
 				lang:        projectLang,
@@ -157,7 +161,7 @@ func main() {
 				fmt.Printf("Unsupported language type: '%v'. Cannot initiate the project. \nHint: You've either a typo at the language name, or the hydra default language configuration is wrong.", projectLang)
 			}
 		})
-	
+
 	commando.
 		Register("update").
 		SetShortDescription("The update command updates hydra to the latest release.").

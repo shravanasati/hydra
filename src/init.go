@@ -3,7 +3,7 @@ The following code is responsible for the init command.
 
 Author: Shravan Asati
 Originally Written: 28 March 2021
-Last edited: 8 May 2021
+Last edited: 8 June 2021
 */
 
 package main
@@ -12,9 +12,9 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
+	"strconv"
 	"strings"
 	"time"
-	"strconv"
 )
 
 // year returns the current year, used for editing LICENSE file.
@@ -31,26 +31,18 @@ func handleException(err error) {
 	}
 }
 
-type Initialiser struct {
+type Initializer struct {
 	projectName string
-	license string
-	lang string
+	license     string
+	lang        string
 }
 
-// makeFile creates a file with the provided content.
-func makeFile(filename, content string) {
-	f, e := os.Create(filename)
-	handleException(e)
-	_, er := f.WriteString(content)
-	handleException(er)
-	f.Close()
-	cwd, _ := os.Getwd()
-	fmt.Printf("\n - Created file '%v' at %v.", filename, cwd)
-}
+
 
 // makeDir creates a directory.
 func makeDir(dirname string) {
-	os.Mkdir(dirname, os.ModePerm)
+	err := os.Mkdir(dirname, os.ModePerm)
+	handleException(err)
 	cwd, _ := os.Getwd()
 	fmt.Printf("\n - Created directory '%v' at %v.", dirname, cwd)
 }
@@ -65,7 +57,7 @@ func execute(base string, command ...string) error {
 	return nil
 }
 
-// getGitignore returns the gitignore variable from static.go, corresponding to the provided language. 
+// getGitignore returns the gitignore variable from static.go, corresponding to the provided language.
 func getGitignore(language string) string {
 	switch language {
 	case "python":
@@ -91,7 +83,7 @@ func manipulateLicense(license string) string {
 	return licenseText
 }
 
-// getGitignore returns the license variable from static.go, corresponding to the provided license. 
+// getGitignore returns the license variable from static.go, corresponding to the provided license.
 func getLicense(license string) string {
 	switch license {
 	case "MIT":
@@ -113,8 +105,12 @@ func getLicense(license string) string {
 	}
 }
 
+func (init *Initializer) initByJson(file string)  {
+
+}
+
 // basicInit makes the README, LICENSE and gitignore files.
-func (init *Initialiser) basicInit() string {
+func (init *Initializer) basicInit() string {
 	fmt.Printf("Initialising project: '%v' in %v.\n", init.projectName, init.lang)
 
 	makeDir(init.projectName)
@@ -128,14 +124,14 @@ func (init *Initialiser) basicInit() string {
 }
 
 // pythonInit is the python project initialisation function.
-func (init *Initialiser) pythonInit() {
+func (init *Initializer) pythonInit() {
 	gwd := init.basicInit()
 
-	setupContent = strings.Replace(setupContent, ":PROJECT_NAME:", init.projectName, 2)
-	setupContent = strings.Replace(setupContent, ":LICENSE:", init.license, 1)
-	setupContent = strings.Replace(setupContent, ":GITHUB:", getConfig("githubUsername"), 1)
-	setupContent = strings.Replace(setupContent, ":AUTHOR_NAME:", getConfig("fullName"), 1)
-	makeFile("setup.py", setupContent)
+	pythonSetup = strings.Replace(pythonSetup, ":PROJECT_NAME:", init.projectName, 2)
+	pythonSetup = strings.Replace(pythonSetup, ":LICENSE:", init.license, 1)
+	pythonSetup = strings.Replace(pythonSetup, ":GITHUB:", getConfig("githubUsername"), 1)
+	pythonSetup = strings.Replace(pythonSetup, ":AUTHOR_NAME:", getConfig("fullName"), 1)
+	makeFile("setup.py", pythonSetup)
 
 	makeDir(init.projectName)
 	os.Chdir(fmt.Sprintf("./%v", init.projectName))
@@ -156,9 +152,8 @@ func (init *Initialiser) pythonInit() {
 	}
 }
 
-
 // goInit is the go project initialisation function.
-func (init *Initialiser) goInit() {
+func (init *Initializer) goInit() {
 	gwd := init.basicInit()
 
 	makeDir("src")
@@ -185,11 +180,10 @@ func (init *Initialiser) goInit() {
 	}
 }
 
-
 // webInit is the web-frontend project initialisation function.
-func (init *Initialiser) webInit() {
+func (init *Initializer) webInit() {
 	gwd := init.basicInit()
-	
+
 	indexContent := strings.Replace(HTMLBoilerplate, ":PROJECT_NAME:", init.projectName, 2)
 	indexContent = strings.Replace(indexContent, ":CSS_LINK:", `<link rel="stylesheet" href="./css/style.css">`, 1)
 	indexContent = strings.Replace(indexContent, ":SCRIPT_LINK:", `<script src="./js/script.js"> </script>`, 1)
@@ -197,7 +191,7 @@ func (init *Initialiser) webInit() {
 	makeFile("README.md", fmt.Sprintf("# %v", init.projectName))
 
 	makeDir("img")
-	
+
 	makeDir("css")
 	os.Chdir("./css")
 	makeFile("style.css", cssReset)
@@ -216,9 +210,8 @@ func (init *Initialiser) webInit() {
 	}
 }
 
-
 // flaskInit is the python-flask project initialisation function.
-func (init *Initialiser) flaskInit()  {
+func (init *Initializer) flaskInit() {
 	gwd := init.basicInit()
 
 	makeFile("app.py", flaskBoilerplate)
@@ -239,7 +232,6 @@ func (init *Initialiser) flaskInit()  {
 	makeFile("style.css", cssReset)
 	os.Chdir(gwd)
 
-
 	// * making the templates dir
 	makeDir("templates")
 	os.Chdir("./templates")
@@ -258,9 +250,8 @@ func (init *Initialiser) flaskInit()  {
 	}
 }
 
-
 // cInit is the C project initialisation function.
-func (init *Initialiser) cInit() {
+func (init *Initializer) cInit() {
 	gwd := init.basicInit()
 
 	makeFile("Makefile.am", "")
@@ -291,7 +282,7 @@ func (init *Initialiser) cInit() {
 }
 
 // cppInit is the C++ project initialisation function.
-func (init *Initialiser) cppInit() {
+func (init *Initializer) cppInit() {
 	gwd := init.basicInit()
 	makeFile("CMakeLists.txt", "")
 
@@ -323,9 +314,8 @@ func (init *Initialiser) cppInit() {
 	}
 }
 
-
 // rubyInit is the ruby project initialisation function.
-func (init *Initialiser) rubyInit() {
+func (init *Initializer) rubyInit() {
 	gwd := init.basicInit()
 
 	makeFile("Gemfile", "")
