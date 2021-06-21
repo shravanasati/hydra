@@ -18,7 +18,7 @@ func list(item string) string {
 			content += fmt.Sprintf("%v. %v \n", i+1, v)
 		}
 		return content
-	
+
 	} else if item == "licenses" {
 		fmt.Printf("\n%v %v supports following licenses for project initialisation: \n", NAME, VERSION)
 		i := 1
@@ -28,7 +28,7 @@ func list(item string) string {
 			i++
 		}
 		return content
-	
+
 	} else if item == "configs" {
 		config("default", "default", "default", "default")
 		content := "\nThe hydra user configurations are: \n"
@@ -38,8 +38,8 @@ func list(item string) string {
 		content += fmt.Sprintf("Default License: %v \n", getConfig("defaultLicense"))
 		content += fmt.Sprintln("\nTo know how to set the configuration, type in `hydra config -h`.")
 		return content
-	
+
 	} else {
 		return fmt.Sprintf("Invalid value for the 'item' argument: '%v'.\nSee `hydra list -h` for help.", item)
-	} 
+	}
 }

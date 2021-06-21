@@ -16,6 +16,9 @@ bin/
 .vscode/
 tempCodeRunnerFile.go 
 
+# JetBrains IDEs
+.idea/
+
 # Dependency directories (remove the comment below to include it)
 # vendor/
 

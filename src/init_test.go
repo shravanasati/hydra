@@ -15,7 +15,6 @@ import (
 	"testing"
 )
 
-
 func getFiles(dir string) []string {
 	projectFiles, er := ioutil.ReadDir(dir)
 	handleException(er)
@@ -34,10 +33,10 @@ func TestPythonInit(t *testing.T) {
 	rlicense := generateRandom("license")
 	rprojectName := generateRandom("name")
 
-	init := Initialiser{
+	init := Initializer{
 		projectName: rprojectName,
-		license: rlicense,
-		lang: "python",
+		license:     rlicense,
+		lang:        "python",
 	}
 	init.pythonInit()
 
@@ -56,7 +55,6 @@ func TestPythonInit(t *testing.T) {
 		t.Errorf("project %v not in the directory", rprojectName)
 	}
 
-
 	// * getting contents of the project initialised
 	projectFiles, er := ioutil.ReadDir("./")
 	handleException(er)
@@ -66,12 +64,24 @@ func TestPythonInit(t *testing.T) {
 	}
 
 	// * checking for various files
-	if !stringInSlice("LICENSE", projectFileNames) {t.Errorf("LICENSE file not present.")}
-	if !stringInSlice("README.md", projectFileNames) {t.Errorf("README.md file not present.")}
-	if !stringInSlice(".gitignore", projectFileNames) {t.Errorf(".gitignore file not present.")}
-	if !stringInSlice("setup.py", projectFileNames) {t.Errorf("setup.py file not present.")}
-	if !stringInSlice(rprojectName, projectFileNames) {t.Errorf("%v dir not present.", rprojectName)}
-	if !stringInSlice("tests", projectFileNames) {t.Errorf("tests dir not present.")}
+	if !stringInSlice("LICENSE", projectFileNames) {
+		t.Errorf("LICENSE file not present.")
+	}
+	if !stringInSlice("README.md", projectFileNames) {
+		t.Errorf("README.md file not present.")
+	}
+	if !stringInSlice(".gitignore", projectFileNames) {
+		t.Errorf(".gitignore file not present.")
+	}
+	if !stringInSlice("setup.py", projectFileNames) {
+		t.Errorf("setup.py file not present.")
+	}
+	if !stringInSlice(rprojectName, projectFileNames) {
+		t.Errorf("%v dir not present.", rprojectName)
+	}
+	if !stringInSlice("tests", projectFileNames) {
+		t.Errorf("tests dir not present.")
+	}
 
 	t.Cleanup(func() {
 		t.Log("Cleaning up...")
@@ -87,10 +97,10 @@ func TestGoInit(t *testing.T) {
 	// * generating random project name and license for initialisation
 	rlicense := generateRandom("license")
 	rprojectName := generateRandom("name")
-	init := Initialiser{
+	init := Initializer{
 		projectName: rprojectName,
-		license: rlicense,
-		lang: "go",
+		license:     rlicense,
+		lang:        "go",
 	}
 	init.goInit()
 
@@ -103,11 +113,21 @@ func TestGoInit(t *testing.T) {
 	}
 
 	// * checking for various files
-	if !stringInSlice("LICENSE", projectFileNames) {t.Errorf("LICENSE file not present.")}
-	if !stringInSlice("README.md", projectFileNames) {t.Errorf("README.md file not present.")}
-	if !stringInSlice(".gitignore", projectFileNames) {t.Errorf(".gitignore file not present.")}
-	if !stringInSlice("src", projectFileNames) {t.Errorf("src dir not present.")}
-	if !stringInSlice("tests", projectFileNames) {t.Errorf("tests dir not present.")}
+	if !stringInSlice("LICENSE", projectFileNames) {
+		t.Errorf("LICENSE file not present.")
+	}
+	if !stringInSlice("README.md", projectFileNames) {
+		t.Errorf("README.md file not present.")
+	}
+	if !stringInSlice(".gitignore", projectFileNames) {
+		t.Errorf(".gitignore file not present.")
+	}
+	if !stringInSlice("src", projectFileNames) {
+		t.Errorf("src dir not present.")
+	}
+	if !stringInSlice("tests", projectFileNames) {
+		t.Errorf("tests dir not present.")
+	}
 
 	t.Cleanup(func() {
 		t.Log("Cleaning up...")
@@ -123,10 +143,10 @@ func TestWebInit(t *testing.T) {
 	// * generating random project name and license for initialisation
 	rlicense := generateRandom("license")
 	rprojectName := generateRandom("name")
-	init := Initialiser{
+	init := Initializer{
 		projectName: rprojectName,
-		license: rlicense,
-		lang: "web",
+		license:     rlicense,
+		lang:        "web",
 	}
 	init.webInit()
 
@@ -135,22 +155,41 @@ func TestWebInit(t *testing.T) {
 
 	// * checking for various files
 	fmt.Println(len(projectFileNames), projectFileNames)
-	if len(projectFileNames) != 8 {t.Errorf("proper structure not made")}
+	if len(projectFileNames) != 8 {
+		t.Errorf("proper structure not made")
+	}
 
-	if !stringInSlice("LICENSE", projectFileNames) {t.Errorf("LICENSE file not present.")}
-	if !stringInSlice("README.md", projectFileNames) {t.Errorf("README.md file not present.")}
-	if !stringInSlice(".gitignore", projectFileNames) {t.Errorf(".gitignore file not present.")}
-	if !stringInSlice("index.html", projectFileNames) {t.Errorf("index.html file not present.")}
-	if !stringInSlice("css", projectFileNames) {t.Errorf("css dir not present.")}
-	if !stringInSlice("js", projectFileNames) {t.Errorf("js dir not present.")}
-	if !stringInSlice("img", projectFileNames) {t.Errorf("img dir not present.")}
+	if !stringInSlice("LICENSE", projectFileNames) {
+		t.Errorf("LICENSE file not present.")
+	}
+	if !stringInSlice("README.md", projectFileNames) {
+		t.Errorf("README.md file not present.")
+	}
+	if !stringInSlice(".gitignore", projectFileNames) {
+		t.Errorf(".gitignore file not present.")
+	}
+	if !stringInSlice("index.html", projectFileNames) {
+		t.Errorf("index.html file not present.")
+	}
+	if !stringInSlice("css", projectFileNames) {
+		t.Errorf("css dir not present.")
+	}
+	if !stringInSlice("js", projectFileNames) {
+		t.Errorf("js dir not present.")
+	}
+	if !stringInSlice("img", projectFileNames) {
+		t.Errorf("img dir not present.")
+	}
 
 	cssFiles := getFiles("./css")
-	if !(stringInSlice("style.css", cssFiles)) {t.Errorf("style.css not present")}
+	if !(stringInSlice("style.css", cssFiles)) {
+		t.Errorf("style.css not present")
+	}
 
 	jsFiles := getFiles("./js")
-	if !(stringInSlice("script.js", jsFiles)) {t.Errorf("script.js not present")}
-
+	if !(stringInSlice("script.js", jsFiles)) {
+		t.Errorf("script.js not present")
+	}
 
 	t.Cleanup(func() {
 		t.Log("Cleaning up...")

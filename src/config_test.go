@@ -13,27 +13,27 @@ func generateRandom(value string) string {
 
 	if value == "name" {
 		// * generating random values for configurations
-	
+
 		var rname string
 		// * generating random name
 		for len(rname) <= 8 {
 			rname += string(letters[rand.Intn(len(letters))])
 		}
 		return rname
-	
+
 	} else if value == "githubUsername" {
-		// * generating random github usename 
+		// * generating random github usename
 		var rgithub string
 		for len(rgithub) <= 10 {
 			rgithub += string(letters[rand.Intn(len(letters))])
 		}
 		return rgithub
-	
+
 	} else if value == "lang" {
 		// * random choice of languages
 		rlang := supportedLangs[rand.Intn(len(supportedLangs))]
 		return rlang
-	
+
 	} else if value == "license" {
 		// * random supported license
 		licenses := []string{}
@@ -42,7 +42,7 @@ func generateRandom(value string) string {
 		}
 		rlicense := licenses[rand.Intn(len(licenses))]
 		return rlicense
-	
+
 	} else {
 		panic(fmt.Sprintf("Invalid value for random generation: %v.", value))
 	}
@@ -63,7 +63,6 @@ func TestConfig(t *testing.T) {
 	rgithub := generateRandom("githubUsername")
 	rlang := generateRandom("lang")
 	rlicense := generateRandom("license")
-
 
 	// * setting configuration
 	config(rname, rgithub, rlang, rlicense)
@@ -93,7 +92,7 @@ func TestConfig(t *testing.T) {
 	}
 
 	// * cleaning up
-	t.Cleanup(func(){
+	t.Cleanup(func() {
 		t.Log("\nCleaning up...\n")
 		config(initialName, initialGithubUsername, initialLang, initialLicense)
 	})

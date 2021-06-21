@@ -10,7 +10,6 @@ import (
 	"strings"
 )
 
-
 func update() {
 	fmt.Println("Updating hydra...")
 
@@ -31,7 +30,7 @@ func update() {
 
 	// * sending a request
 	res, err := http.Get(url)
-	
+
 	if err != nil {
 		fmt.Println("Error: Unable to download the executable. Check your internet connection.")
 		fmt.Println(err)
@@ -48,9 +47,11 @@ func update() {
 		return
 	}
 	downloadPath += "/.hydra/hydra"
-	if runtime.GOOS == "windows" {downloadPath += ".exe"}
+	if runtime.GOOS == "windows" {
+		downloadPath += ".exe"
+	}
 
-	os.Rename(downloadPath, downloadPath + "-old")
+	os.Rename(downloadPath, downloadPath+"-old")
 
 	exe, er := os.Create(downloadPath)
 	if er != nil {
@@ -68,7 +69,7 @@ func update() {
 		return
 	}
 
-	// * performing an additional `chmod` utility for linux and mac 
+	// * performing an additional `chmod` utility for linux and mac
 	if runtime.GOOS == "darwin" || runtime.GOOS == "linux" {
 		execute("chmod", "u+x", downloadPath)
 	}
@@ -78,7 +79,7 @@ func update() {
 
 func deletePreviousInstallation() {
 	hydraDir, _ := os.UserHomeDir()
-	
+
 	hydraDir += "/.hydra"
 
 	files, _ := ioutil.ReadDir(hydraDir)
