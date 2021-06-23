@@ -20,7 +20,6 @@
 <br>
 
 ## ⚡️ Installation
-### Method 1
 
 **For Linux users:**
 
@@ -62,13 +61,6 @@ Version: 2.2.0
 ```
 If the output isn't something like this, you need to repeat the above steps carefully.
 
-
-### Method 2
-If you've Go installed on your system, execute:
-
-`go get github.com/Shravan-1908/hydra`
-
-You don't need to change the PATH variable in this case, as Go will automatically build and add the executable in the `$GOPATH/bin` directory.
 
 <br>
 
