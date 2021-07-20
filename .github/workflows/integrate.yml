@@ -55,4 +55,4 @@ jobs:
       run: go build -v -o hydra ./...
     
     - name: Test
-      run: go test -v ./..
+      run: go test -v src/*
