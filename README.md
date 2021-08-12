@@ -1,4 +1,7 @@
 # hydra
+
+[![Continuous Integration](https://github.com/Shravan-1908/hydra/actions/workflows/integrate.yml/badge.svg)](https://github.com/Shravan-1908/hydra/actions/workflows/integrate.yml)
+
 *hydra* is a command line utility for generating language-specific project structures.
 
 ![python-init](assets/python_init.PNG)
