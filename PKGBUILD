@@ -1,6 +1,6 @@
-# Maintainer: Your Name <youremail@domain.com>
+Maintainer: Shravan Asati <dev.shravan@protonmail.com>
 pkgname=hydra-go
-pkgver=2.2
+pkgver=2.2.0
 pkgrel=1
 epoch=
 pkgdesc="hydra is a command line utility for generating language-specific project structures."
@@ -41,5 +41,5 @@ build() {
 # }
 
 package() {
-	echo "Installation DOne"
+	echo "hydra installation is sucessful"
 }
