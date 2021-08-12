@@ -11,6 +11,8 @@ chmod u+x ./hydra
 
 mv ./hydra ~/.hydra
 echo "export PATH=$PATH:~/.hydra" >> ~/.bashrc
+set -U fish_user_paths ~/.hydra/ $fish_user_paths      
+echo "export PATH=$PATH:~/.hydra" >> ~/.zshrc
 
 echo "hydra installation is completed!"
 echo "You need to restart the shell to use hydra."
