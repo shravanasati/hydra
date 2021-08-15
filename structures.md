@@ -1,6 +1,6 @@
 # Project Structures
 
-This file shows how the project structure for each language hydra supports looks like.
+This file shows how the project structure for each language hydra supports, looks like.
 
 ### python
 
