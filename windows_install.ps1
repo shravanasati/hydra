@@ -1,6 +1,6 @@
 Write-Host "Downloading hydra..."
 
-$url = "https://github.com/Shravan-1908/hydra/releases/latest/download/hydra-windows-amd64.exe"
+$url = "https://github.com/shravanasati/hydra/releases/latest/download/hydra-windows-amd64.exe"
 
 $dir = $env:USERPROFILE + "\.hydra"
 $filepath = $env:USERPROFILE + "\.hydra\hydra.exe"

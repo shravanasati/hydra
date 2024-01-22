@@ -25,7 +25,7 @@ func year() string {
 // handleException handles the exception by printing it and exiting the program.
 func handleException(err error) {
 	if err != nil {
-		fmt.Println("FATAL ERROR: Project initialisation failed! This should never happen. You may want to file an issue at the hydra repository: https://github.com/Shravan-1908/hydra/issues/new?assignees=&labels=&template=bug_report.md&title=")
+		fmt.Println("FATAL ERROR: Project initialisation failed! This should never happen. You may want to file an issue at the hydra repository: https://github.com/shravanasati/hydra/issues/new?assignees=&labels=&template=bug_report.md&title=")
 		fmt.Println(err)
 		os.Exit(-1)
 	}

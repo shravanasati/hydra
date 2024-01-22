@@ -53,7 +53,7 @@ func main() {
 	commando.
 		SetExecutableName(NAME).
 		SetVersion(VERSION).
-		SetDescription("hydra is command line utility used to generate language-specific project structure. \nFor more detailed information and documentation, visit https://github.com/Shravan-1908/hydra . \n")
+		SetDescription("hydra is command line utility used to generate language-specific project structure. \nFor more detailed information and documentation, visit https://github.com/shravanasati/hydra . \n")
 
 	commando.
 		Register(nil).

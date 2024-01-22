@@ -55,9 +55,9 @@ This section shows how you can setup your development environment to contribute 
 - Make changes.
 - Stage and commit (`git add .` and `git commit -m "COMMIT MESSAGE"`).
 - Push it your remote repository (`git push`).
-- Open a pull request by clicking [here](https://github.com/Shravan-1908/hydra/compare).
+- Open a pull request by clicking [here](https://github.com/shravanasati/hydra/compare).
 
 
 ## Reporting Issues
 If you know a bug in the code or you want to file a feature request, open an issue.
-Choose the correct issue template from [here](https://github.com/Shravan-1908/hydra/issues/new/choose).
+Choose the correct issue template from [here](https://github.com/shravanasati/hydra/issues/new/choose).

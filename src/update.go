@@ -18,11 +18,11 @@ func update() {
 	url := ""
 	switch runtime.GOOS {
 	case "windows":
-		url = "https://github.com/Shravan-1908/hydra/releases/latest/download/hydra-windows-amd64.exe"
+		url = "https://github.com/shravanasati/hydra/releases/latest/download/hydra-windows-amd64.exe"
 	case "linux":
-		url = "https://github.com/Shravan-1908/hydra/releases/latest/download/hydra-linux-amd64"
+		url = "https://github.com/shravanasati/hydra/releases/latest/download/hydra-linux-amd64"
 	case "darwin":
-		url = "https://github.com/Shravan-1908/hydra/releases/latest/download/hydra-darwin-amd64"
+		url = "https://github.com/shravanasati/hydra/releases/latest/download/hydra-darwin-amd64"
 	default:
 		fmt.Println("Your OS isnt supported by hydra.")
 		return

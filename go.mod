@@ -1,4 +1,4 @@
-module github.com/Shravan-1908/hydra
+module github.com/shravanasati/hydra
 
 go 1.16
 

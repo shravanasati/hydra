@@ -1,6 +1,6 @@
 # hydra
 
-[![Continuous Integration](https://github.com/Shravan-1908/hydra/actions/workflows/integrate.yml/badge.svg)](https://github.com/Shravan-1908/hydra/actions/workflows/integrate.yml)
+[![Continuous Integration](https://github.com/shravanasati/hydra/actions/workflows/integrate.yml/badge.svg)](https://github.com/shravanasati/hydra/actions/workflows/integrate.yml)
 
 *hydra* is a command line utility for generating language-specific project structures.
 
@@ -37,7 +37,7 @@ Otherwise,
 Execute the following command in bash:
 
 ```bash
-curl https://raw.githubusercontent.com/Shravan-1908/hydra/main/linux_install.sh > hydra_install.sh
+curl https://raw.githubusercontent.com/shravanasati/hydra/main/linux_install.sh > hydra_install.sh
 
 chmod +x ./hydra_install.sh
 
@@ -50,7 +50,7 @@ bash ./hydra_install.sh
 Execute the following command in bash:
 
 ```bash
-curl https://raw.githubusercontent.com/Shravan-1908/hydra/main/macos_install.sh > hydra_install.sh
+curl https://raw.githubusercontent.com/shravanasati/hydra/main/macos_install.sh > hydra_install.sh
 
 chmod +x ./hydra_install.sh
 
@@ -61,7 +61,7 @@ bash ./hydra_install.sh
 
 Open Powershell **as Admin** and execute the following command:
 ```powershell
-Set-ExecutionPolicy Bypass -Scope Process -Force; (Invoke-WebRequest -Uri https://raw.githubusercontent.com/Shravan-1908/hydra/main/windows_install.ps1 -UseBasicParsing).Content | powershell -
+Set-ExecutionPolicy Bypass -Scope Process -Force; (Invoke-WebRequest -Uri https://raw.githubusercontent.com/shravanasati/hydra/main/windows_install.ps1 -UseBasicParsing).Content | powershell -
 ```
 
 To verify the installation of *hydra*, open a new shell and execute `hydra -v`. You should see output like this:

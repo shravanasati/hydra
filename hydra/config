@@ -3,6 +3,6 @@
 	filemode = true
 	bare = true
 [remote "origin"]
-	url = https://github.com/Shravan-1908/hydra.git
+	url = https://github.com/shravanasati/hydra.git
 	fetch = +refs/*:refs/*
 	mirror = true

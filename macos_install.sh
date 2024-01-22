@@ -2,7 +2,7 @@
 #!/bin/bash
 
 echo "Downloading hydra..."
-curl -L "https://github.com/Shravan-1908/hydra/releases/latest/download/hydra-darwin-amd64" -o hydra
+curl -L "https://github.com/shravanasati/hydra/releases/latest/download/hydra-darwin-amd64" -o hydra
 
 echo "Adding hydra into PATH..."
 
